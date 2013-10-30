@@ -1,6 +1,9 @@
 <html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
 <body>
-
+<div style="background-color:#ffcc00">
 <?php
 //Create a connection to the oracle database with the user xxx and the password yyy on the host zzz with the database www
 $c = oci_connect('jwassel', 'jasonwassel', '//localhost/curt');
@@ -34,5 +37,7 @@ print '</table>';
 
 //Now let's close the PHP code and end the HTML.
 ?>
+</div>
+<a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/homePage.php">Go Back</a>
 </body>
 </html>

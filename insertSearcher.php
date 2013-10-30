@@ -18,6 +18,7 @@ if (!$c) {
     trigger_error(htmlentities($e['message']), E_USER_ERROR);
 }
 
+
 $q = 'insert into searchers (search_id, username, startdate, startingpoint, destination, description) values (seq_search_id.nextval, :f, :g, :h, :j, :k)';
 //Parse that SQL query into a statement
 $s = oci_parse($c, $q);
@@ -39,6 +40,6 @@ oci_close($c);
 ?>
 </head>
 <body>
-<a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/index.html">Go Back</a>
+<a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/homePage.php">Go Back</a>
 </body>
 </html>

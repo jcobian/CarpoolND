@@ -37,7 +37,7 @@ oci_close($c);
 ?>
 </head>
 <body>
-<a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/index.html">Go Back</a>
+<a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/homePage.php">Go Back</a>
 </body>
 </html>
 
