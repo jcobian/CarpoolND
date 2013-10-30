@@ -30,8 +30,9 @@ if (!$c) {
     trigger_error(htmlentities($e['message']), E_USER_ERROR);
 }
 
-$q = 'select car_id from Car where owner = $username';
+$q = 'select car_id from Car where owner = :a';
 $s = oci_parse($c, $q);
+oci_bind_by_name($s, ":a", $username);
 oci_execute($s);
 while($row = oci_fecth_array($s))
 {
