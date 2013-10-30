@@ -3,14 +3,13 @@
 
 <?php
 $destination = $_GET['destination'];
-
 //Create a connection to the oracle database with the user xxx and the password yyy on the host zzz with the database www
 $c = oci_connect('jwassel', 'jasonwassel', '//localhost/curt');
 //Write some SQL code to get rows from the wizards table
-$q = "select startingpoint, destination, startdate, starttime, eta, description, openseats, driver from carpool where destination = 'Pittsburgh'";
+$q = 'select startingpoint, destination, startdate, starttime, eta, description, openseats, driver from carpool where destination = :t';
 //Parse that SQL query into a statement
 $s = oci_parse($c, $q);
-//oci_bind_by_name($s, ":z", $destination);
+oci_bind_by_name($s, ":t", $destination);
 //Execute the SQL statement/query
 oci_execute($s);
 
@@ -21,6 +20,7 @@ print '<table>';
   print '<td><b>Starting Point </b></td> <td><b>Destination</b></td> <td><b>Start Date</b></td> <td><b>Start Time</b></td> <td><b>ETA</b></td> <td><b>Description</b></td> <td><b>Open Seats</b></td> <td><b>Driver</b></td>';
 print '<tr>';
 while ($row = oci_fetch_array($s,OCI_ASSOC)) {
+    //Inside the loop we have get one $row at a time, so we need to handle this with HTML:
 
     print '<tr>';
     //Inside of each $row we have several attributes/columns that we need to iterate through.
@@ -34,7 +34,8 @@ while ($row = oci_fetch_array($s,OCI_ASSOC)) {
 //...and the table
 print '</table>';
 
-//Now let's close the PHP code and end the HTML.
+oci_close($c);
+
 ?>
 </body>
 </html>

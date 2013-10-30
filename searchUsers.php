@@ -10,7 +10,7 @@ $q = 'select firstname, lastname, username, email, phonenumber from users';
 $s = oci_parse($c, $q);
 //Execute the SQL statement/query
 oci_execute($s);
-
+oci_close($c);
 //We want to print out the results of the query into an HTML table; so we'll need to write an HTML table. This can be done by closing the PHP and writing straight HTML code, or you can have PHP print the HTML code. Let's have PHP print the HTML for now.
 print '<table>';
 //We want to loop through all of the rows from the result of the query
