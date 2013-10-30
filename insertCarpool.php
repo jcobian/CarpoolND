@@ -34,7 +34,11 @@ if (!$c) {
 $q = 'select car_id from Car where owner = :a';
 $s = oci_parse($c, $q);
 oci_bind_by_name($s, ":a", $username);
-oci_execute($s);
+if(!oci_execute($s))
+{
+	$e = oci_error($s);
+	print $e['message'];
+}
 $carId = 0;
 
 while($row = oci_fetch_array($s, OCI_ARRAY))
