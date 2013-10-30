@@ -15,13 +15,13 @@ p.Helv{font-family:Helvetica,serif}
 $username = $_POST['username'];
 $password = $_POST['password'];
 ?>
-<a href="http://orchestra.cselab.nd.edu/~jwassel/insertCar.html">Add a Car</a>
+<a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/insertCar.html">Add a Car</a>
 <br></br>
-<a href="http://orchestra.cselab.nd.edu/~jwassel/insertCarpool.html">Create a Carpool</a>
+<a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/insertCarpool.html">Create a Carpool</a>
 <br></br>
-<a href="http://orchestra.cselab.nd.edu/~jwassel/insertSearcher.html">Search for a ride</a>
+<a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/insertSearcher.html">Search for a ride</a>
 <br></br>
-<a href="http://orchestra.cselab.nd.edu/~jwassel/insertComments.html">Leave Feedback</a>
+<a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/insertComments.html">Leave Feedback</a>
 <br></br>
 
 </body>
