@@ -2,24 +2,25 @@
 print("Hello World");
 $Make = $_GET['Make'];
 $Model = $_GET['Model'];
-$Seats = $_GET['Seats'];
-$OccupiedSeats = $_GET['OccupiedSeats'];
+$Year = $_GET['Year'];
+$Owner = $_GET['Owner'];
+$Numberofseats = $_GET['Numberofseats'];
 $c = oci_connect('jwassel', 'jasonwassel', '//localhost/curt');
 if (!$c) {
     $e = oci_error();   // For oci_connect errors do not pass a handle
     trigger_error(htmlentities($e['message']), E_USER_ERROR);
 }
-$q = 'insert into cars values (:v :w, :x, :y, :z)';
+$q = 'insert into car (car_id, make, model, year, owner, numberofseats) values (:t, :v, :w, :x, :y, :z)';
 //Parse that SQL query into a statement
 $s = oci_parse($c, $q);
-print("Hello World");
 
 //Next we bind the variables to the placeholders.
-oci_bind_by_name($s, ":v", SEQ_CAR.nextval);
-oci_bind_by_name($s, ":w", $Make);
-oci_bind_by_name($s, ":x", $Model);
-oci_bind_by_name($s, ":y", $Seats);
-oci_bind_by_name($s, ":z", $OccupiedSeats);
+oci_bind_by_name($s, ":t", seq_car_id.nextval);
+oci_bind_by_name($s, ":v", $Make);
+oci_bind_by_name($s, ":w", $Model);
+oci_bind_by_name($s, ":x", $Year);
+oci_bind_by_name($s, ":y", $Owner);
+oci_bind_by_name($s, ":z", $Numberofseats);
 //Execute the SQL statement
 if(!oci_execute($s)){
 $e = oci_error($s);
