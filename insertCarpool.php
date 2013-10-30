@@ -34,6 +34,7 @@ $q = 'select car_id from Car where owner = :a';
 $s = oci_parse($c, $q);
 oci_bind_by_name($s, ":a", $username);
 oci_execute($s);
+$carId = 0;
 while($row = oci_fecth_array($s))
 {
 	foreach($row as $column)
@@ -41,6 +42,7 @@ while($row = oci_fecth_array($s))
 		$carId = $column;
 	}
 }
+$carId = 0;
 
 $q = 'insert into carpool (carpool_id,car_id, startingpoint, destination, startdate, starttime, eta, description, openseats, driver, user1, user2, user3, user4, user5, user6, user7, user8) values (seq_carpool_id.nextval, :f, :g, :h, :j, :k, :l, :m, :n, :p, :q, :r, :t, :v, :w, :x, :y, :z)';
 //Parse that SQL query into a statement
