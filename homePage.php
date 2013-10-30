@@ -23,9 +23,8 @@ $password = $_POST['password'];
 <br></br>
 <a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/insertSearcher.html">Request a ride</a>
 <br></br>
-<a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/insertComments.html">Leave Feedback</a>
 <br></br>
-<a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/insertComments.html">Leave Feedback</a>
+<a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/deleteCar.php">Remove one of my cars</a>
 </div>
 </center>
 
