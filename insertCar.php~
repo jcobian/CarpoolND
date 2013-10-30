@@ -1,9 +1,10 @@
 <?php
 print("Hello World");
+$Username = $_GET['Username'];
 $Make = $_GET['Make'];
 $Model = $_GET['Model'];
 $Year = $_GET['Year'];
-$Owner = $_GET['owner'];
+$Owner = $_GET['Owner'];
 $Numberofseats = $_GET['Numberofseats'];
 $c = oci_connect('jwassel', 'jasonwassel', '//localhost/curt');
 if (!$c) {

@@ -1,7 +1,7 @@
 <html>
 <body>
 <form action="insertCar.php" method="get">
-Owner: <input name="owner"/>
+Username: <input name="username"/>
 Make: <input name="Make"/>
 Model: <input name="Model"/>
 Year: <input name="Year"/>
