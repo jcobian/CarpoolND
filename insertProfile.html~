@@ -4,8 +4,10 @@
 Username: <input name="username"/>
 First Name: <input name="firstname"/>
 Last Name: <input name="lastname"/>
-Phone Number: <input name="phonenumber"/>
+Phonenumber: <input name="phonenumber"/>
 Email: <input name="email"/>
+Rating: <input name = "rating"/>
+Comments: <input name = "comments"/>
 Password: <input name="password"/>
 <input type="submit"/>
 </form>

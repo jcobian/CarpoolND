@@ -5,7 +5,6 @@ $lastname = $_GET['lastname'];
 $phonenumber = $_GET['phonenumber'];
 $email = $_GET['email'];
 $password = $_GET['password'];
-$password = md5($password);
 $c = oci_connect('jwassel', 'jasonwassel', '//localhost/curt');
 if (!$c) {
     $e = oci_error();   // For oci_connect errors do not pass a handle
