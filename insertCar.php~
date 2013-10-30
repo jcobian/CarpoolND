@@ -6,6 +6,7 @@ p {font-size:14px}
 p.Helv{font-family:Helvetica,serif}
 </style>
 <?php
+print("Hello World");
 $Make = $_GET['Make'];
 $Model = $_GET['Model'];
 $Year = $_GET['Year'];
