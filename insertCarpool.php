@@ -1,3 +1,10 @@
+<html>
+<head>
+<style>
+body {background-color:#041c42;}
+p {font-size:14px}
+p.Helv{font-family:Helvetica,serif}
+</style>
 <?php
 $username = $_GET['username'];
 $startingPoint = $_GET['startingPoint'];
@@ -64,3 +71,8 @@ if(!oci_execute($s))
 }
 oci_close($c);
 ?>
+</head>
+<body>
+<a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/index.html">Go Back</a>
+</body>
+</html>

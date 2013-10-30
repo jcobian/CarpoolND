@@ -2,20 +2,21 @@
 <head>
 <title>User Home</title>
 <style>
-body {background-color:#b0c4de;}
+body {background-color:#041c42;}
 p {font-size:14px}
 p.Helv{font-family:Helvetica,serif}
 </style>
 </head>
 <body>
-<center><h2>CarpoolND</h2></center>
+<center><h2 style="background-color:#ffcc00">CarpoolND</h2></center>
 </head>
 <body>
 <?php
 $username = $_POST['username'];
 $password = $_POST['password'];
 ?>
-<center<
+<center>
+<div style="background-color:#ffcc00">
 <a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/insertCar.html">Add a Car</a>
 <br></br>
 <a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/insertCarpool.html">Create a Carpool</a>
@@ -24,6 +25,8 @@ $password = $_POST['password'];
 <br></br>
 <a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/insertComments.html">Leave Feedback</a>
 <br></br>
+<a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/insertComments.html">Leave Feedback</a>
+</div>
 </center>
 
 </body>

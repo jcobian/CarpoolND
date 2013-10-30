@@ -1,3 +1,10 @@
+<html>
+<head>
+<style>
+body {background-color:#041c42;}
+p {font-size:14px}
+p.Helv{font-family:Helvetica,serif}
+</style>
 <?php
 print("Hello World");
 $Make = $_GET['Make'];
@@ -28,6 +35,11 @@ print $e['message'];
 }
 oci_close($c);
 ?>
+</head>
+<body>
+<a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/index.html">Go Back</a>
+</body>
+</html>
 
 
 
