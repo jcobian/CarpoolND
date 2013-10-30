@@ -1,3 +1,5 @@
+<html>
+<head>
 <?php
 $username = $_GET['username'];
 $firstname = $_GET['firstname'];
@@ -25,9 +27,14 @@ oci_bind_by_name($s, ":z", $password);
 
 //Execute the SQL statement
 oci_execute($s);
-print("Hello World");
 
 oci_close($c);
 ?>
+</head>
+<body>
+<a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/index.html">Go Back</a>
+</body>
+</html>
+
 
 
