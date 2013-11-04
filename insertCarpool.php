@@ -40,17 +40,18 @@ if(!oci_execute($s))
 	print $e['message'];
 }
 $carId = 0;
-
+print "username is $username";
 while($row = oci_fetch_array($s, OCI_ARRAY))
 {
-	print "hasdf";
+	print "in loop";
 	foreach($row as $column)
 	{
 		$carId = $column;
+		print "in loop car id is $cardId";
 	}
 }
 
-
+		print "at end car id is $cardId";
 
 $q = 'insert into carpool (carpool_id,car_id, startingpoint, destination, startdate, starttime, eta, description, openseats, driver, user1, user2, user3, user4, user5, user6, user7, user8) values (seq_carpool_id.nextval, :f, :g, :h, :j, :k, :l, :m, :n, :p, :q, :r, :t, :v, :w, :x, :y, :z)';
 //Parse that SQL query into a statement
