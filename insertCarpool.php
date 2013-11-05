@@ -21,14 +21,6 @@ $endMinute= $_GET['endMinute'];
 $endAmPm = $_GET[endAmPm'];
 $description = $_GET['description'];
 $openSeats = $_GET['openSeats'];
-$passenger1 = $_GET['passenger1'];
-$passenger2 = $_GET['passenger2'];
-$passenger3 = $_GET['passenger3'];
-$passenger4 = $_GET['passenger4'];
-$passenger5 = $_GET['passenger5'];
-$passenger6 = $_GET['passenger6'];
-$passenger7 = $_GET['passenger7'];
-$passenger8 = $_GET['passenger8'];
 $carId = $_GET['carId'];
 
 $c = oci_connect('jwassel', 'jasonwassel', '//localhost/curt');

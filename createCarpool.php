@@ -136,14 +136,6 @@
 <option value=9> 9 </option>
 </select>
 </p>
-<p><label for="passenger1">Passenger 1: <input name="passenger1"/></p>
-<p><label for="passenger2">Passenger 2: <input name="passenger2"/></p>
-<p><label for="passenger3">Passenger 3: <input name="passenger3"/></p>
-<p><label for="passenger4">Passenger 4: <input name="passenger4"/></p>
-<p><label for="passenger5">Passenger 5: <input name="passenger5"/></p>
-<p><label for="passenger6">Passenger 6: <input name="passenger6"/></p>
-<p><label for="passenger7">Passenger 7: <input name="passenger7"/></p>
-<p><label for="passenger8">Passenger 8: <input name="passenger8"/></p>
 <span>Car: </span><select name="carId">
 <?php
 $c = oci_connect('jwassel', 'jasonwassel', '//localhost/curt');
@@ -169,6 +161,7 @@ while($row = oci_fetch_array($s,OCI_BOTH)){
 oci_close($c);
 ?>	
 </select>
+<br></br>
 <input type="submit"/>
 </div>
 </form>
