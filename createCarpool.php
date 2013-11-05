@@ -22,8 +22,7 @@
 <p><label for="passenger6">Passenger 6: <input name="passenger6"/></p>
 <p><label for="passenger7">Passenger 7: <input name="passenger7"/></p>
 <p><label for="passenger8">Passenger 8: <input name="passenger8"/></p>
-<select name="carId">
-  <option value="volvo">Volvo</option>
+<span>Car: </span><select name="carId">
 <?php
 $c = oci_connect('jwassel', 'jasonwassel', '//localhost/curt');
 if (!$c) {
@@ -45,6 +44,7 @@ while($row = oci_fetch_array($s,OCI_BOTH)){
 		echo "<option value=\"".$row[0]."\">".$row[1]."</option>";
 
 }
+oci_close($c);
 ?>	
 </select>
 <input type="submit"/>
