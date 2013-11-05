@@ -10,9 +10,15 @@ p.Helv{font-family:Helvetica,serif}
 
 $startingPoint = $_GET['startingPoint'];
 $destination = $_GET['destination'];
-$startDate = $_GET['startDate'];
-$startTime = $_GET['startTime'];
-$ETA = $_GET['ETA'];
+$month= $_GET['month'];
+$day= $_GET['day'];
+$year= $_GET['year'];
+$startHour = $_GET['startHour'];
+$startMinute= $_GET['startMinute'];
+$startAmPm = $_GET[startAmPm'];
+$endHour = $_GET['endHour'];
+$endMinute= $_GET['endMinute'];
+$endAmPm = $_GET[endAmPm'];
 $description = $_GET['description'];
 $openSeats = $_GET['openSeats'];
 $passenger1 = $_GET['passenger1'];
@@ -34,6 +40,7 @@ if (!$c) {
 $q = 'insert into carpool (carpool_id,car_id, startingpoint, destination, startdate, starttime, eta, description, openseats, driver, user1, user2, user3, user4, user5, user6, user7, user8) values (seq_carpool_id.nextval, :f, :g, :h, :j, :k, :l, :m, :n, :p, :q, :r, :t, :v, :w, :x, :y, :z)';
 //Parse that SQL query into a statement
 $s = oci_parse($c, $q);
+
 
 //Next we bind the variables to the placeholders.
 oci_bind_by_name($s, ":f", $carId);

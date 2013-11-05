@@ -3,6 +3,7 @@
 <body>
 
 <?php
+$wrong=0;
 $time = $_GET['time'];
 $carpool_id = $_GET['carpool_id'];
 //Create a connection to the oracle database with the user xxx and the password yyy on the host zzz with the database www
