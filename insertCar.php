@@ -1,3 +1,4 @@
+<?php session_start();?>
 <html>
 <head>
 <style>
@@ -9,7 +10,6 @@ p.Helv{font-family:Helvetica,serif}
 $Make = $_GET['Make'];
 $Model = $_GET['Model'];
 $Year = $_GET['Year'];
-$Owner = $_GET['owner'];
 $Numberofseats = $_GET['Numberofseats'];
 $c = oci_connect('jwassel', 'jasonwassel', '//localhost/curt');
 if (!$c) {
@@ -24,7 +24,7 @@ $s = oci_parse($c, $q);
 oci_bind_by_name($s, ":v", $Make);
 oci_bind_by_name($s, ":w", $Model);
 oci_bind_by_name($s, ":x", $Year);
-oci_bind_by_name($s, ":y", $Owner);
+oci_bind_by_name($s, ":y", $_SESSION['username']);
 oci_bind_by_name($s, ":z", $Numberofseats);
 //Execute the SQL statement
 if(!oci_execute($s)){

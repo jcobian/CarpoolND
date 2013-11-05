@@ -1,3 +1,4 @@
+<?php session_start();?>
 <html>
 <head>
 <style>
@@ -9,10 +10,13 @@ p.Helv{font-family:Helvetica,serif}
 <?php
 //Create a connection to the oracle database with the user xxx and the password yyy on the host zzz with the database www
 $c = oci_connect('jwassel', 'jasonwassel', '//localhost/curt');
-$q = 'select make, model, year from car';
+$q = 'select make, model, year from car where username = :t';
 //Parse that SQL query into a statement
 $s = oci_parse($c, $q);
 //Execute the SQL statement/query
+
+oci_bind_by_name($s, ":t", $_SESSION['username']);
+
 oci_execute($s);
 
 //We want to print out the results of the query into an HTML table; so we'll need to write an HTML table. This can be done by closing the PHP and writing straight HTML code, or you can have PHP print the HTML code. Let's have PHP print the HTML for now.

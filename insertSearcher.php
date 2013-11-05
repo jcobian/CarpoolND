@@ -1,3 +1,4 @@
+<?php session_start();?>
 <html>
 <head>
 <style>
@@ -6,7 +7,6 @@ p {font-size:14px}
 p.Helv{font-family:Helvetica,serif}
 </style>
 <?php
-$username = $_GET['username'];
 $startDate = $_GET['startDate'];
 $startingPoint = $_GET['startingPoint'];
 $destination = $_GET['destination'];
@@ -24,7 +24,7 @@ $q = 'insert into searchers (search_id, username, startdate, startingpoint, dest
 $s = oci_parse($c, $q);
 
 //Next we bind the variables to the placeholders.
-oci_bind_by_name($s, ":f", $username);
+oci_bind_by_name($s, ":f", $_SESSION['username']);
 oci_bind_by_name($s, ":g", $startDate);
 oci_bind_by_name($s, ":h", $startingPoint);
 oci_bind_by_name($s, ":j", $destination);

@@ -1,3 +1,6 @@
+<?php session_destroy();?>
+
+<?php session_start();?>
 <html>
 <head>
 <style>
