@@ -2,16 +2,116 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="css/style.css">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      #map-canvas {
+        height: 90%;
+        margin-left: 0px;
+        padding: 10px;
+	width: 55%;
+	float:right
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3key={AIzaSyA5NX_2Kc2TG3t9vePL-3gz2W6YAhoB1tA}&sensor=false">></script>
+    <script>
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();
+var map;
+var geocoder;
+window.onload = function() {
+
+ updateTime();
+
+}
+function updateTime() {
+var today = new Date();
+  var dd = today.getDate(); 
+  var mm = today.getMonth()+1;
+  var yyyy = today.getFullYear();
+  document.getElementById("startMonth").value = mm;
+  document.getElementById("startDay").value = dd;
+  document.getElementById("startYear").value = yyyy;
+
+  document.getElementById("endMonth").value = mm;
+  document.getElementById("endDay").value = dd;
+  document.getElementById("endYear").value = yyyy;
+
+}
+function initialize() {
+  
+  geocoder = new google.maps.Geocoder();
+
+  directionsDisplay = new google.maps.DirectionsRenderer();
+  var chicago = new google.maps.LatLng(41.850033, -87.6500523);
+  var mapOptions = {
+    zoom:7,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    center: chicago
+  }
+  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  directionsDisplay.setMap(map);
+}
+
+function calcRoute() {
+  var start = document.getElementById('start').value;
+  var end = document.getElementById('end').value;
+  var request = {
+      origin:start,
+      destination:end,
+      travelMode: google.maps.DirectionsTravelMode.DRIVING
+  };
+  directionsService.route(request, function(response, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      directionsDisplay.setDirections(response);
+    }
+  });
+}
+
+  function codeAddress(latOrLong) {
+    var address = document.getElementById('start').value;
+
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+        });
+	if(latOrLong==0) {
+		document.getElementById("startLat").value = results[0].geometry.location.lat()
+		document.getElementById("startLong").value = results[0].geometry.location.lng()
+	} else {
+		document.getElementById("endLat").value = results[0].geometry.location.lat()
+		document.getElementById("endLong").value = results[0].geometry.location.lng()
+	}
+      	//alert("Position is: " + results[0].geometry.location.lat() + "," + results[0].geometry.location.lng());
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
+
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
 </head>
 <body>
 <center><h2 style="background-color:#ffcc00"> Create a Carpool</h2></center>
+    <div id="map-canvas"></div>
 <form action="insertCarpool.php" method="get">
-<div class="insertForm">
-<p><label for="startingPoint">Starting Point: <input name="startingPoint"/></p>
-<p><label for="destination">Destination: <input name="destination"/></p>
+<div class="insertForm" style="float:left">
+
+<label for="start">Starting Point: <input name="start" id="start" type="textbox" onchange="calcRoute(); codeAddress(0);"/>
+<label for="end">End Point: <input name="end" id="end" onchange="calcRoute(); codeAddress(1);"/>
+<input name="startLat" id="startLat" type="hidden"/>
+<input name="startLong" id="startLong" type="hidden"/>
+<input name="endLat" id="startLat" type="hidden"/>
+<input name="endLong" id="startLong" type="hidden"/>
 <p>
 <span>Start Date: </span>
-<select name="startMonth">
+<select name="startMonth" id = "startMonth">
 <option value=1> January </option>
 <option value=2> February </option>
 <option value=3> March </option>
@@ -25,7 +125,7 @@
 <option value=11> November </option>
 <option value=12> December </option>
 </select>
-<select name="startDay">
+<select name="startDay" id = "startDay">
 <option value=1> 1 </option>
 <option value=2> 2 </option>
 <option value=3> 3 </option>
@@ -58,7 +158,7 @@
 <option value=30> 30 </option>
 <option value=31> 31 </option>
 </select>
-<select name="startYear">
+<select name="startYear" id = "startYear">
 <option value=2013>2013</option>
 <option value=2014>2014</option>
 <option value=2015>2015</option>
@@ -67,7 +167,7 @@
 </p>
 <p>
 <span>Start Time: </span>
-<select name="startHour">
+<select name="startHour" id = "startHour">
 <option value=1> 1 </option>
 <option value=2> 2 </option>
 <option value=3> 3 </option>
@@ -82,20 +182,20 @@
 <option value=12 selected> 12 </option>
 </select>
 <span>:</span>
-<select name="startMinute">
+<select name="startMinute" id = "startMinute">
 <option value=0 selectd> 00 </option>
 <option value=15> 15 </option>
 <option value=30> 30 </option>
 <option value=45> 45 </option>
 </select>
-<select name="startAmPm">
+<select name="startAmPm" id = "startAmPm">
 <option value="am"> A.M. </option>
 <option value="pm" selected> P.M. </option>
 </select>
 </p>
 <p>
 <span>ETA Date: </span>
-<select name="endMonth">
+<select name="endMonth" id = "endMonth">
 <option value=1> January </option>
 <option value=2> February </option>
 <option value=3> March </option>
@@ -109,7 +209,7 @@
 <option value=11> November </option>
 <option value=12> December </option>
 </select>
-<select name="endDay">
+<select name="endDay" id = "endDay">
 <option value=1> 1 </option>
 <option value=2> 2 </option>
 <option value=3> 3 </option>
@@ -142,7 +242,7 @@
 <option value=30> 30 </option>
 <option value=31> 31 </option>
 </select>
-<select name="endYear">
+<select name="endYear" id = "endYear">
 <option value=2013>2013</option>
 <option value=2014>2014</option>
 <option value=2015>2015</option>
@@ -151,7 +251,7 @@
 </p>
 <p>
 <span>ETA: </span>
-<select name="endHour">
+<select name="endHour" id = "endHour">
 <option value=1> 1 </option>
 <option value=2> 2 </option>
 <option value=3> 3 </option>
@@ -166,13 +266,13 @@
 <option value=12 selected> 12 </option>
 </select>
 <span>:</span>
-<select name="endMinute">
+<select name="endMinute" id = "endMinute">
 <option value=0 selected> 00 </option>
 <option value=15> 15 </option>
 <option value=30> 30 </option>
 <option value=45> 45 </option>
 </select>
-<select name="endAmPm">
+<select name="endAmPm" id = "endAmPm">
 <option value="am"> A.M. </option>
 <option value="pm" selected> P.M. </option>
 </select>
@@ -219,7 +319,7 @@ oci_close($c);
 </select>
 <br></br>
 <input type="submit"/>
-</div>
+</div> <!--closes insertForm -->
 </form>
 </body>
 </html>
