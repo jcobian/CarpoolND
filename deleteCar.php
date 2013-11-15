@@ -1,11 +1,7 @@
 <?php session_start();?>
 <html>
 <head>
-<style>
-body {background-color:#041c42;}
-p {font-size:14px}
-p.Helv{font-family:Helvetica,serif}
-</style>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <?php
 $c = oci_connect('jwassel', 'jasonwassel', '//localhost/curt');
 if (!$c) {
@@ -15,10 +11,10 @@ if (!$c) {
 ?>
 </head>
 <body>
-<center><h2 style="background-color:#ffcc00"> Delete a Car From your Profile</h2></center>
-<div class="insertForm" style="background-color:#ffcc00">
+<center><h2> Delete a Car From your Profile</h2></center>
+<div class="insertForm">
 <form action="showDeletedCar.php" method="get">
-<span>Car: </span><select name="carId">
+<div class="form-control"><span>Car: </span><select name="carId">
 <?php
 $q = 'select car_id, Make, Model from Car where owner = :a';
 $s = oci_parse($c, $q);
@@ -36,6 +32,7 @@ while($row = oci_fetch_array($s,OCI_BOTH)){
 }
 oci_close($c);
 ?>	
+</div>
 </select>
 <br></br>
 <input type="submit"/>

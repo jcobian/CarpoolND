@@ -1,14 +1,14 @@
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 </head>
 <body>
-<center><h2 style="background-color:#ffcc00"> Add a Car to your Profile</h2></center>
-<form action="insertCar.php" method="get">
+<center><h2> Add a Car to your Profile</h2></center>
+<form action="insertCar.php" method="get" role="form">
 <div class="insertForm">
-<p><label for="Make">Make: </label><input name="Make"/></p>
-<p><label for="Model">Model: </label><input name="Model"/></p>
-<p><span>Year: </span>
+<div class="form-group"><p><label for="Make">Make: </label><input name="Make"/></p></div>
+<div class="form-group"><p><label for="Model">Model: </label><input name="Model"/></p></div>
+<div class="form-control"><p><span>Year: </span>
 <select name="Year">
 <option value=2014>2014</option>
 <option value=2013>2013</option>
@@ -46,8 +46,8 @@
 <option value=1981>1981</option>
 <option value=1980>1980</option>
 <option value=1979>Older Than 1980</option>
-</select></p>
-<p><span>Number of Seats: </span>
+</select></p></div>
+<div class="form-group"><p><span>Number of Seats: </span>
 <select name="Numberofseats">
 <option value=2>2</option>
 <option value=3>3</option>
@@ -58,7 +58,7 @@
 <option value=8>8</option>
 <option value=9>9</option>
 <option value=10>10</option>
-</select></p>
+</select></p></div>
 
 </div>
 <input type="submit"/>

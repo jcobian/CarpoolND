@@ -1,8 +1,8 @@
 <?php session_start();?>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<div style="background-color:#ffcc00">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<div>
 <?php
 //Create a connection to the oracle database with the user xxx and the password yyy on the host zzz with the database www
 $c = oci_connect('jwassel', 'jasonwassel', '//localhost/curt');

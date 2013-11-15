@@ -3,4 +3,4 @@ p {font-size:14px;}
 p.Helv{font-family:Helvetica,serif;}
 
 .insertForm {background-color:#ffcc00;}
-a {color:#ffcc00}
+

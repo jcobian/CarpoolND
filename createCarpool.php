@@ -1,7 +1,7 @@
 <?php session_start();?>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <style>
@@ -105,18 +105,18 @@ google.maps.event.addDomListener(window, 'load', initialize);
     </script>
 </head>
 <body>
-<center><h2 style="background-color:#ffcc00"> Create a Carpool</h2></center>
+<center><h2> Create a Carpool</h2></center>
     <div id="map-canvas"></div>
 <form action="insertCarpool.php" method="get">
 <div class="insertForm" style="float:left">
 
-<label for="start">Starting Point: <input name="start" id="start" type="textbox" onchange="calcRoute(); codeAddress(this);"/>
-<label for="end">End Point: <input name="end" id="end" onchange="calcRoute(); codeAddress(this);"/>
+<div class="form-group"><label for="start">Starting Point: <input name="start" id="start" type="textbox" onchange="calcRoute(); codeAddress(this);"/></div>
+<div class ="form-group"><label for="end">End Point: <input name="end" id="end" onchange="calcRoute(); codeAddress(this);"/></div>
 <input name="startLat" id="startLat" type="hidden"/>
 <input name="startLong" id="startLong" type="hidden"/>
 <input name="endLat" id="endLat" type="hidden"/>
 <input name="endLong" id="endLong" type="hidden"/>
-<p>
+<div class = "form-control">
 <span>Start Date: </span>
 <select name="startMonth" id = "startMonth">
 <option value=01> January </option>
@@ -171,8 +171,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <option value=2015>2015</option>
 <option value=2016>2016</option>
 </select>
-</p>
-<p>
+</div>
+<div class = "form-control">
 <span>Start Time: </span>
 <select name="startHour" id = "startHour">
 <option value=1> 1 </option>
@@ -199,8 +199,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <option value="am"> AM </option>
 <option value="pm" selected> PM </option>
 </select>
-</p>
-<p>
+</div>
+<div class = "form-control">
 <span>ETA Date: </span>
 <select name="endMonth" id = "endMonth">
 <option value=01> January </option>
@@ -255,8 +255,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <option value=2015>2015</option>
 <option value=2016>2016</option>
 </select>
-</p>
-<p>
+</div>
+<div class = "form-control">
 <span>ETA: </span>
 <select name="endHour" id = "endHour">
 <option value=1> 1 </option>
@@ -283,9 +283,9 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <option value="am"> AM </option>
 <option value="pm" selected> PM </option>
 </select>
-</p>
-<p><label for="description">Description: <input name="description"/></p>
-<p>
+</div>
+<div class = "form-group"><label for="description">Description: <input name="description"/></div>
+<div class = "form-control">
 <span>Open Seats: </span>
 <select name="openSeats">
 <option value=1> 1 </option>
@@ -298,7 +298,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <option value=8> 8 </option>
 <option value=9> 9 </option>
 </select>
-</p>
+</div>
 <span>Car: </span><select name="carId">
 <?php
 $c = oci_connect('jwassel', 'jasonwassel', '//localhost/curt');

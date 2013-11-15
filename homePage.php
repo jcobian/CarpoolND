@@ -1,15 +1,11 @@
 <?php session_start();?>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <title>User Home</title>
-<style>
-body {background-color:#041c42;}
-p {font-size:14px}
-p.Helv{font-family:Helvetica,serif}
-</style>
 </head>
 <body>
-<center><h2 style="background-color:#ffcc00">CarpoolND</h2></center>
+<center><h2>CarpoolND</h2></center>
 </head>
 <body>
 <?php
@@ -17,7 +13,7 @@ $username = $_POST['username'];
 $password = $_POST['password'];
 ?>
 <center>
-<div id="homePageLinksDiv" style="background-color:#ffcc00">
+<div id="homePageLinksDiv">
 <a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/insertCar.html">Add a Car</a>
 <br></br>
 <a href="http://orchestra.cselab.nd.edu/~olamb/CarpoolND/createCarpool.php">Create a Carpool</a>
@@ -29,8 +25,6 @@ $password = $_POST['password'];
 <a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/updateTime.php">Change Time of Carpool</a>
 <br></br>
 <a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/searchCarpool.php">Show All Carpools</a>
-<br></br>
-<a href="http://orchestra.cselab.nd.edu/~olamb/CarpoolND/map.html">Map<a/>
 <br></br>
 </div>
 </center>

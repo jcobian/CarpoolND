@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>CarpoolND</title>
-<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <?php session_destroy();?>
 <?php
 $wrong = 0;
@@ -37,13 +37,13 @@ $wrong=1;
 
 </head>
 <body>
-<center><h2 style="background-color:#ffcc00">CarpoolND</h2></center>
+<center><h2>CarpoolND</h2></center>
 
 <center>
-<form action="loginPage.php" method="post">
+<form action="loginPage.php" method="post" role="form">
 <div class="insertForm">
-<p><label for="username">Username: </label><input type="text" name="username"/></p>
-<p><label for="password">Password: </label><input type ="password" name="password"/></p>
+<div class="form-group"><label for="username">Username: </label><input type="text" name="username"/></div>
+<div class="form-group"><label for="password">Password: </label><input type ="password" name="password"/></div>
 <?php
 if($wrong==1){
 echo "<h2> Wrong Username and password combination </h2>";
