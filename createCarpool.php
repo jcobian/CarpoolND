@@ -68,9 +68,16 @@ function calcRoute() {
   });
 }
 
-  function codeAddress(latOrLong) {
-    var address = document.getElementById('start').value;
-
+  function codeAddress(sel) {
+    var isEnd;
+    var address;
+    if(sel.id == 'start') {
+	isEnd = 0;
+        address = document.getElementById('start').value;}
+    else { 
+        isEnd = 1;
+        address = document.getElementById('end').value;
+    }
     geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         map.setCenter(results[0].geometry.location);
@@ -78,7 +85,7 @@ function calcRoute() {
             map: map,
             position: results[0].geometry.location
         });
-	if(latOrLong==0) {
+	if(isEnd==0) {
 		document.getElementById("startLat").value = results[0].geometry.location.lat()
 		document.getElementById("startLong").value = results[0].geometry.location.lng()
 	} else {
@@ -103,38 +110,38 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <form action="insertCarpool.php" method="get">
 <div class="insertForm" style="float:left">
 
-<label for="start">Starting Point: <input name="start" id="start" type="textbox" onchange="calcRoute(); codeAddress(0);"/>
-<label for="end">End Point: <input name="end" id="end" onchange="calcRoute(); codeAddress(1);"/>
+<label for="start">Starting Point: <input name="start" id="start" type="textbox" onchange="calcRoute(); codeAddress(this);"/>
+<label for="end">End Point: <input name="end" id="end" onchange="calcRoute(); codeAddress(this);"/>
 <input name="startLat" id="startLat" type="hidden"/>
 <input name="startLong" id="startLong" type="hidden"/>
-<input name="endLat" id="startLat" type="hidden"/>
-<input name="endLong" id="startLong" type="hidden"/>
+<input name="endLat" id="endLat" type="hidden"/>
+<input name="endLong" id="endLong" type="hidden"/>
 <p>
 <span>Start Date: </span>
 <select name="startMonth" id = "startMonth">
-<option value=1> January </option>
-<option value=2> February </option>
-<option value=3> March </option>
-<option value=4> April </option>
-<option value=5> May </option>
-<option value=6> June </option>
-<option value=7> July </option>
-<option value=8> August </option>
-<option value=9> September </option>
+<option value=01> January </option>
+<option value=02> February </option>
+<option value=03> March </option>
+<option value=04> April </option>
+<option value=05> May </option>
+<option value=06> June </option>
+<option value=07> July </option>
+<option value=08> August </option>
+<option value=09> September </option>
 <option value=10> October </option>
 <option value=11> November </option>
 <option value=12> December </option>
 </select>
 <select name="startDay" id = "startDay">
-<option value=1> 1 </option>
-<option value=2> 2 </option>
-<option value=3> 3 </option>
-<option value=4> 4 </option>
-<option value=5> 5 </option>
-<option value=6> 6 </option>
-<option value=7> 7 </option>
-<option value=8> 8 </option>
-<option value=9> 9 </option>
+<option value=01> 1 </option>
+<option value=02> 2 </option>
+<option value=03> 3 </option>
+<option value=04> 4 </option>
+<option value=05> 5 </option>
+<option value=06> 6 </option>
+<option value=07> 7 </option>
+<option value=08> 8 </option>
+<option value=09> 9 </option>
 <option value=10> 10 </option>
 <option value=11> 11 </option>
 <option value=12> 12 </option>
@@ -183,42 +190,42 @@ google.maps.event.addDomListener(window, 'load', initialize);
 </select>
 <span>:</span>
 <select name="startMinute" id = "startMinute">
-<option value=0 selectd> 00 </option>
+<option value=00 selected> 00 </option>
 <option value=15> 15 </option>
 <option value=30> 30 </option>
 <option value=45> 45 </option>
 </select>
 <select name="startAmPm" id = "startAmPm">
-<option value="am"> A.M. </option>
-<option value="pm" selected> P.M. </option>
+<option value="am"> AM </option>
+<option value="pm" selected> PM </option>
 </select>
 </p>
 <p>
 <span>ETA Date: </span>
 <select name="endMonth" id = "endMonth">
-<option value=1> January </option>
-<option value=2> February </option>
-<option value=3> March </option>
-<option value=4> April </option>
-<option value=5> May </option>
-<option value=6> June </option>
-<option value=7> July </option>
-<option value=8> August </option>
-<option value=9> September </option>
+<option value=01> January </option>
+<option value=02> February </option>
+<option value=03> March </option>
+<option value=04> April </option>
+<option value=05> May </option>
+<option value=06> June </option>
+<option value=07> July </option>
+<option value=08> August </option>
+<option value=09> September </option>
 <option value=10> October </option>
 <option value=11> November </option>
 <option value=12> December </option>
 </select>
 <select name="endDay" id = "endDay">
-<option value=1> 1 </option>
-<option value=2> 2 </option>
-<option value=3> 3 </option>
-<option value=4> 4 </option>
-<option value=5> 5 </option>
-<option value=6> 6 </option>
-<option value=7> 7 </option>
-<option value=8> 8 </option>
-<option value=9> 9 </option>
+<option value=01> 1 </option>
+<option value=02> 2 </option>
+<option value=03> 3 </option>
+<option value=04> 4 </option>
+<option value=05> 5 </option>
+<option value=06> 6 </option>
+<option value=07> 7 </option>
+<option value=08> 8 </option>
+<option value=09> 9 </option>
 <option value=10> 10 </option>
 <option value=11> 11 </option>
 <option value=12> 12 </option>
@@ -267,14 +274,14 @@ google.maps.event.addDomListener(window, 'load', initialize);
 </select>
 <span>:</span>
 <select name="endMinute" id = "endMinute">
-<option value=0 selected> 00 </option>
+<option value=00 selected> 00 </option>
 <option value=15> 15 </option>
 <option value=30> 30 </option>
 <option value=45> 45 </option>
 </select>
 <select name="endAmPm" id = "endAmPm">
-<option value="am"> A.M. </option>
-<option value="pm" selected> P.M. </option>
+<option value="am"> AM </option>
+<option value="pm" selected> PM </option>
 </select>
 </p>
 <p><label for="description">Description: <input name="description"/></p>
@@ -284,7 +291,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <option value=1> 1 </option>
 <option value=2> 2 </option>
 <option value=3> 3 </option>
-<option value=4> 4 </option>
+<option value=4 selected> 4 </option>
 <option value=5> 5 </option>
 <option value=6> 6 </option>
 <option value=7> 7 </option>

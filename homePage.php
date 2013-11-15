@@ -20,7 +20,7 @@ $password = $_POST['password'];
 <div id="homePageLinksDiv" style="background-color:#ffcc00">
 <a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/insertCar.html">Add a Car</a>
 <br></br>
-<a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/createCarpool.php">Create a Carpool</a>
+<a href="http://orchestra.cselab.nd.edu/~olamb/CarpoolND/createCarpool.php">Create a Carpool</a>
 <br></br>
 <a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/insertSearcher.html">Request a ride</a>
 <br></br>
