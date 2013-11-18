@@ -2,6 +2,7 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
 <script type="text/javascript">
 function clickedButton(sel) {
 	if(sel.id=="goBack") {

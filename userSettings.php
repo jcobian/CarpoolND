@@ -4,6 +4,7 @@
 <title> CarpoolND: User Settings </title>
 </head>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
 <?php
 $username = $_SESSION['username'];
 ?>
