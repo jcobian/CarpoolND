@@ -1,12 +1,10 @@
 <?php session_start();?>
 <html>
 <head>
-<style>
-body {background-color:#041c42;}
-p {font-size:14px}
-p.Helv{font-family:Helvetica,serif}
-</style>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <?php
+$startName = $_GET['start'];
+$endName = $_GET['end'];
 $startLat = $_GET['startLat'];
 $startLong = $_GET['startLong'];
 $endLat = $_GET['endLat'];
@@ -37,7 +35,7 @@ if (!$c) {
     trigger_error(htmlentities($e['message']), E_USER_ERROR);
 }
 
-$q = "insert into carpool (carpool_id,car_id, startlat,startlng,endlat,endlng,startDate, endDate, description, openseats,driver) values (seq_carpool_id.nextval, :f, :g, :h, :j, :k, to_date(:l,'yyyy/mm/dd:hh:mi:ssam'), to_date(:m,'yyyy/mm/dd:hh:mi:ssam'), :n, :p, :z)";
+$q = "insert into carpool (carpool_id,car_id, startlat,startlng,endlat,endlng,startDate, endDate, description, openseats,driver,startname,endname) values (seq_carpool_id.nextval, :f, :g, :h, :j, :k, to_date(:l,'yyyy/mm/dd:hh:mi:ssam'), to_date(:m,'yyyy/mm/dd:hh:mi:ssam'), :n, :p, :z,:q,:r)";
 //Parse that SQL query into a statement
 $s = oci_parse($c, $q);
 
@@ -48,9 +46,6 @@ oci_bind_by_name($s, ":g", $startLat);
 oci_bind_by_name($s, ":h", $startLong);
 oci_bind_by_name($s, ":j", $endLat);
 oci_bind_by_name($s, ":k", $endLong);
-print $endLat;
-echo "\n";
-print $endLong;
 
 //print $startDateString."\n";
 //print $endDateString."\n";
@@ -61,6 +56,8 @@ oci_bind_by_name($s, ":n", $description);
 
 oci_bind_by_name($s, ":p", $openseats);
 oci_bind_by_name($s, ":z", $driver);
+oci_bind_by_name($s, ":q", $startName);
+oci_bind_by_name($s, ":r", $endName);
 
 //Execute the SQL statement
 if(!oci_execute($s))
@@ -69,9 +66,9 @@ if(!oci_execute($s))
 	print $e['message'];
 }
 oci_close($c);
+header("Location:homePage.php");
 ?>
 </head>
 <body>
-<a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/homePage.php">Go Back</a>
 </body>
 </html>

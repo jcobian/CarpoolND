@@ -2,6 +2,14 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<script type="text/javascript">
+function clickedButton(sel) {
+	if(sel.id=="goBack") {
+		window.location.href="homePage.php";
+	}
+
+}
+</script>
 </head>
 <body>
 <div>
@@ -39,6 +47,6 @@ print '</table>';
 //Now let's close the PHP code and end the HTML.
 ?>
 </div>
-<a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/homePage.php">Go Back</a>
+<button id="goBack" type="button" onclick="clickedButton(this)"> Go Back</button>
 </body>
 </html>

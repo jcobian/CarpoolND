@@ -46,14 +46,14 @@ $wrong=1;
 <p><label for="password">Password: </label><input type ="password" name="password"/></p>
 <?php
 if($wrong==1){
-echo "<h2> Wrong Username and password combination </h2>";
+echo "<h3> Wrong Username and password combination </h2>";
 }
 ?>
 <input type="submit" />
 </div>
 </form>
 
-<a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/insertProfile.html">Create a profile</a>
+<a href="http://orchestra.cselab.nd.edu/~jcobian/CarpoolND/insertProfile.html">Create a profile</a>
 </center>
 </body>
 </html>

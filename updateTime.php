@@ -4,12 +4,16 @@
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <div>
 <?php
+$username = $_SESSION['username'];
 //Create a connection to the oracle database with the user xxx and the password yyy on the host zzz with the database www
 $c = oci_connect('jwassel', 'jasonwassel', '//localhost/curt');
 //Write some SQL code to get rows from the wizards table
-$q = 'select carpool_id, startingpoint, destination, startdate, starttime, eta, description, openseats, driver from carpool';
+$q = 'select carpool_id, startname, endname, startdate, enddate from carpool where driver=:q';
 //Parse that SQL query into a statement
 $s = oci_parse($c, $q);
+
+oci_bind_by_name($s, ":q", $username);
+
 //Execute the SQL statement/query
 oci_execute($s);
 
@@ -17,7 +21,7 @@ oci_execute($s);
 print '<table>';
 //We want to loop through all of the rows from the result of the query
           print '<tr>';
-  print '<td><b>Carpool Id </b></td><td><b>Starting Point </b></td> <td><b>Destination</b></td> <td><b>Start Date</b></td> <td><b>Start Time</b></td> <td><b>ETA</b></td> <td><b>Description</b></td> <td><b>Open Seats</b></td> <td><b>Driver</b></td>';
+  print '<td><b>Carpool Id </b></td><td><b>Starting Point </b></td> <td><b>Destination</b></td> <td><b>Start Date</b></td> <td><b>End Date</b></td>';
 print '<tr>';
 while ($row = oci_fetch_array($s,OCI_ASSOC)) {
     //Inside the loop we have get one $row at a time, so we need to handle this with HTML:
@@ -42,7 +46,8 @@ print '</table>';
 <form action="confirmTimeChange.php" method="get">
 <div class="insertForm">
 Carpool Id: <input name="carpool_id"/> <br></br>
-New Time: <input name="time"/><br></br>
+New Start Time: <input name="startTime"/><br></br>
+New End Time: <input name="endTime"/><br></br>
 </div>
 <input type="submit"/>
 </form>

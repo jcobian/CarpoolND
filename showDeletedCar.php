@@ -28,10 +28,10 @@ $e = oci_error($s);
 print $e['message'];
 }
 oci_close($c);
+header("Location:homePage.php");
 ?>
 </head>
 <body>
-<a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/homePage.php">Go Back</a>
 </body>
 </html>
 

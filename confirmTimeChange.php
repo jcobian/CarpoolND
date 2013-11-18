@@ -4,7 +4,8 @@
 
 <?php
 $wrong=0;
-$time = $_GET['time'];
+$startTime = $_GET['startTime'];
+$endTime = $_GET['endTime'];
 $carpool_id = $_GET['carpool_id'];
 //Create a connection to the oracle database with the user xxx and the password yyy on the host zzz with the database www
 $c = oci_connect('jwassel', 'jasonwassel', '//localhost/curt');
@@ -27,11 +28,9 @@ if(!oci_execute($s))
 
 
 oci_close($c);
-print 'Confirmed Time Change';
+header("Location:homePage.php");
 
 ?>
-
-<a href="http://orchestra.cselab.nd.edu/~jwassel/CarpoolND/homePage.php">Go Back</a>
 
 </body>
 </html>
