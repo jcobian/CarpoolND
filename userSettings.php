@@ -1,4 +1,12 @@
-<?php session_start();?>
+<?php session_start();
+if(!isset($_SESSION['username']))
+{unset($_SESSION);
+session_destroy();
+session_write_close();
+header("Location:index.html");
+exit;
+}
+?>
 <html>
 <head>
 <title> CarpoolND: User Settings </title>
@@ -11,7 +19,7 @@ $username = $_SESSION['username'];
 <script type="text/javascript">
 function clickedButton(sel) {
 	if(sel.id=="addCar") {
-		window.location.href="insertCar.html";
+		window.location.href="createCar.html";
 	}
 	if(sel.id=="deleteCar") {
 		window.location.href="deleteCar.php";

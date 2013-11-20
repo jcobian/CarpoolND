@@ -1,4 +1,12 @@
-<?php session_start();?>
+<?php session_start();
+if(!isset($_SESSION['username']))
+{unset($_SESSION);
+session_destroy();
+session_write_close();
+header("Location:loginPage.php");
+exit;
+}
+?>
 <html>
 <head>
 <style>
