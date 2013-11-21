@@ -10,6 +10,7 @@ exit;
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 <center><h2> Add a Car to your Profile</h2></center>
@@ -17,7 +18,7 @@ exit;
 <div class="insertForm">
 <div class="form-group"><p><label for="Make">Make: </label><input name="Make"/></p></div>
 <div class="form-group"><p><label for="Model">Model: </label><input name="Model"/></p></div>
-<div class="form-control"><p><span>Year: </span>
+<div class="form-group"><p><span>Year: </span>
 <select name="Year">
 <option value=2014>2014</option>
 <option value=2013>2013</option>
@@ -68,7 +69,11 @@ exit;
 <option value=9>9</option>
 <option value=10>10</option>
 </select></p></div>
-
+<div class="form-group"><p><span>Car Details: </span>
+<textarea rows="4" cols="50" name="Details"
+placeholder="Enter details about your car. Ex: Air conditioned, condition of car, airbags, etc.">
+</textarea>
+</div> 
 </div>
 <input type="submit"/>
 

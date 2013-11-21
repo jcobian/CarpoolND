@@ -19,7 +19,7 @@ $username = $_SESSION['username'];
 <script type="text/javascript">
 function clickedButton(sel) {
 	if(sel.id=="addCar") {
-		window.location.href="createCar.html";
+		window.location.href="createCar.php";
 	}
 	if(sel.id=="deleteCar") {
 		window.location.href="deleteCar.php";
