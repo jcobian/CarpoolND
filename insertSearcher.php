@@ -63,11 +63,44 @@ if(!oci_execute($s))
 	$e = oci_error($s);
 	print $e['message'];
 }
-oci_close($c);
 //header("Location:homePage.php");
 ?>
 </head>
 <body>
-<p> add a table here that displays results. maybe don't do oci_close and then right here you set up the table then do the search and add it to the table </p>
+<table border="1">
+<tr>
+<td> Starting Point </td>
+<td> Ending Point </td>
+<td> Start Date </td>
+<td> End Date </td>
+<td> Open Seats </td>
+<td> Driver </td>
+</tr>
+<?php
+$q = "select startname, endname, startdate, enddate, openseats, driver
+	from carpool where :g = startlat and :h=startlng and :j=endlat and :k=endlng and openseats>0";
+
+//Parse that SQL query into a statement
+$s = oci_parse($c, $q);
+oci_bind_by_name($s, ":g", $startLat);
+oci_bind_by_name($s, ":h", $startLong);
+oci_bind_by_name($s, ":j", $endLat);
+oci_bind_by_name($s, ":k", $endLong);
+//Execute the SQL statement
+if(!oci_execute($s))
+{
+	$e = oci_error($s);
+	print $e['message'];
+}
+while($row=oci_fetch_array($s,OCI_ASSOC)) {
+	print '<tr>';
+	foreach ($row as $column) {
+		print '<td>'.$column.'</td>';
+	}
+	print '</tr>';
+}
+oci_close($c);
+?>
+</table>
 </body>
 </html>
