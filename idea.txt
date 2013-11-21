@@ -1,0 +1,4 @@
+When someone request a ride
+You go through each existing carpool and add the requested origin and destinatoin as waypoints to each existing carpool
+You then compar ethe times from the original carpool to the new one w/ waypoints and if the time diff is below a certain threshold then bam! display it
+
