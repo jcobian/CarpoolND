@@ -135,14 +135,14 @@ function findTimes() {
 	var myData1 = <?php echo json_encode($originsLngArray);?>;
 	var myData2 = <?php echo json_encode($endLatArray);?>;
 	var myData3 = <?php echo json_encode($endLngArray);?>;
-	alert(myData2.length);
-	for(var index = 0; index < myData2.length; index++)
-	{
+	//alert(myData3.length);
+	//for(var index = 0; index < myData2.length; index++)
+	//{
 	//	alert(myData[index]);
-		//calcRoute(myData[0], myData1[0], myData2[1], myData3[1]);  //NEED TO MAKE IT SO NO CARPOOL CANNOT HAVE A NULL ENTRY
-		alert(myData2[index] +" , " + myData3[index]);
+		calcRoute(myData[0], myData1[0], myData2[0], myData3[0]);  //NEED TO MAKE IT SO NO CARPOOL CANNOT HAVE A NULL ENTRY
+		alert(myData2[0] +" , " + myData3[0]);
 		//alert(myData2[0] +" , " + myData3[0]);
-	}
+	//}
 }
 
 function calcRoute(startLat, startLng, endLat, endLng) {
@@ -161,7 +161,7 @@ function calcRoute(startLat, startLng, endLat, endLng) {
 	location: passengerEnd,//"south bend, in",//document.getElementById('end').value;
 	stopover: true
   });
-  alert(driverStart + " , " + waypts[0].location + " , " + waypts[1].location + " , " + driverEnd);
+  //alert(driverStart + " , " + waypts[0].location + " , " + waypts[1].location + " , " + driverEnd);
   var riderRequest = {
       origin:driverStart,
       waypoints: waypts,
