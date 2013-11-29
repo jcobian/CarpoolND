@@ -171,8 +171,21 @@ function calcRoute(startLat, startLng, endLat, endLng) {
   directionsService.route(riderRequest, function(response, status) {
     if (status == google.maps.DirectionsStatus.OK) {
       directionsDisplay.setDirections(response);
+      alert(response.routes[0].legs[0].duration.text);
+      var total_time = 0;
+      for(var i = 0; i < response.routes[0].legs.length; i++) {
+        total_time = total_time + response.legs[i].duration.text;
+      }
+      alert("here" + total_time);
     }
   });
+
+  alert(response.routes[0].legs.length);
+  /*var total_time = 0;
+  for(var i = 0; i < routes.legs.length; i++){ 
+	total_time = total_time + legs[i].duration;
+  }
+  alert(total_time);*/
 }
 
   function codeAddress(sel) {
