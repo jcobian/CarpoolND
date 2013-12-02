@@ -60,7 +60,7 @@ function clickedButton(sel) {
 </table>
 <table>
 <tr><td> <button id="createCarpool" type="button" onclick="clickedButton(this)"> I Am a Driver</button></td></tr>
-<tr><td> <button id="insertSearcher" type="button" onclick="clickedButton(this)">  I am a Passenger</button></td></tr>
+<tr><td> <button id="insertSearcher" type="button" onclick="clickedButton(this)">  I Am a Passenger</button></td></tr>
 <tr><td> <button id="searchCarpools" type="button" onclick="clickedButton(this)"> Browse All Carpools</button></td></tr>-->
 </table>
 </body>

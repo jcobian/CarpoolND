@@ -43,7 +43,7 @@ $wrong=1;
 <center>
 <form action="loginPage.php" method="post" role="form">
 <div class="insertForm">
-<div class="form-group"><label for="username">Username: </label><input type="text" name="username"/></div>
+<div class="form-group"><label for="username">Email: </label><input type="text" name="username"/></div>
 <div class="form-group"><label for="password">Password: </label><input type ="password" name="password"/></div>
 <?php
 if($wrong==1){

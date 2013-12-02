@@ -266,7 +266,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 </select>
 </div>
 <div class = "form-control">
-<span>ETA: </span>
+<span>ETA (local time): </span>
 <select name="endHour" id = "endHour">
 <option value=1> 1 </option>
 <option value=2> 2 </option>
