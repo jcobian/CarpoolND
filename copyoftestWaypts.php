@@ -76,7 +76,7 @@ while ($row = oci_fetch_array($s,OCI_ASSOC)) {
 }
 
 //5th query
-$q = 'select carpool_id from carpool';
+$q = 'select carpoolid from carpool';
 //Parse that SQL query into a statement
 $s = oci_parse($c, $q);
 //Execute the SQL statement/query
@@ -151,29 +151,37 @@ function findTimes() {
 	var destLatArray = <?php echo json_encode($endLatArray);?>;
 	var destLngArray = <?php echo json_encode($endLngArray);?>;
 	var carpoolIDArray = <?php echo json_encode($carpoolIDArray);?>;
-	var resultCarpoolIDs = new Array();
-
-	var len=carpoolIDArray.length;
-	alert(len);
-	for(var index = 0; index<5;index++)
+	var result=0;
+	var shortestDifference =0;
+	for(var index = 0; index < destLatArray.length; index++)
 	{	
-		 calcRouteWithoutWaypts(originsLatArray[index], originsLngArray[index], destLatArray[index], destLngArray[index], resultCarpoolIDs, carpoolIDArray[index]);
-		 
-	}
-	//alert("Results len = " + resultCarpoolIDs.length);
-	for(var i=0;i<resultCarpoolIDs.length;i++) {
-		alert(i + " = " + resultCarpoolIDs[i]);
-	}
+		//var initialTime = calcRouteWithoutWaypts(originsLatArray[index], originsLngArray[index], destLatArray[index], destLngArray[index]);
+		var waypointTime = calcRoute(originsLatArray[index], originsLngArray[index], destLatArray[index], destLngArray[index]);  //NEED TO MAKE IT SO NO CARPOOL CANNOT HAVE A NULL ENTRY
+		//alert(initialTime);
+		//alert(waypointTime);
+		var difference = waypointTime - initialTime;
+		//alert("difference is: " + difference);
+		if(index == 0){
+			shortestDifference = difference;
+			result = carpoolIDArray[index];
 
+		}
+		else if (difference < shortestDifference){
+			shortestDifference = difference;
+			result = carpoolIDArray[index];
+		}
+	}
+	alert("shortest time: " + shortestDifference);
+	alert("carpoolid: " + result);
 }
 
-function calcRoute(startLat, startLng, endLat, endLng,initialTime, resultCarpoolIDs, carpoolID) {
+function calcRoute(startLat, startLng, endLat, endLng) {
   var driverStart = new google.maps.LatLng(startLat, startLng);
   var driverEnd = new google.maps.LatLng(endLat, endLng);
   var passengerStart = document.getElementById('start').value;
   var passengerEnd = document.getElementById('end').value;
   var waypts = [];
-	
+  
   waypts.push({
 	location: passengerStart,
 	stopover: true
@@ -190,28 +198,20 @@ function calcRoute(startLat, startLng, endLat, endLng,initialTime, resultCarpool
   };
   directionsService.route(riderRequest, function(response, status) {
     if (status == google.maps.DirectionsStatus.OK) {
-     // directionsDisplay.setDirections(response);
-      var total_time_with_waypts = 0;
+      directionsDisplay.setDirections(response);
+      var total_time = 0;
       for(var i = 0; i < response.routes[0].legs.length; i++) {
-        total_time_with_waypts = total_time_with_waypts + response.routes[0].legs[i].duration.value;
+        total_time = total_time + response.routes[0].legs[i].duration.value;
       }
-	alert("Initial time = " + initialTime + " Waypoints time = " + total_time_with_waypts);
-	if(initialTime < total_time_with_waypts) {
-		resultCarpoolIDs.push(carpoolID);
-		alert("Added, carpool id = " + carpoolID + " len is now = " + resultCarpoolIDs.length);
-
-	}	
-
-
-		
+      alert("total_time (in seconds): " + total_time);
+	return total_time;	
     }
   });
   
 }
 
 
-function calcRouteWithoutWaypts(startLat, startLng, endLat, endLng, resultCarpoolIDs, carpoolID) {
-
+function calcRouteWithoutWaypts(startLat, startLng, endLat, endLng) {
   var driverStart = new google.maps.LatLng(startLat, startLng);
   var driverEnd = new google.maps.LatLng(endLat, endLng);
 
@@ -222,14 +222,13 @@ function calcRouteWithoutWaypts(startLat, startLng, endLat, endLng, resultCarpoo
   };
   directionsService.route(riderRequest, function(response, status) {
     if (status == google.maps.DirectionsStatus.OK) {
-      //directionsDisplay.setDirections(response);
-      var total_time_without_waypts = 0;
+      directionsDisplay.setDirections(response);
+      var total_time = 0;
       for(var i = 0; i < response.routes[0].legs.length; i++) {
-        total_time_without_waypts = total_time_without_waypts + response.routes[0].legs[i].duration.value;
+        total_time = total_time + response.routes[0].legs[i].duration.value;
       }
-      //alert("total_time without waypts (in seconds): " + total_time_without_waypts);
-	calcRoute(startLat, startLng, endLat, endLng,total_time_without_waypts, resultCarpoolIDs, carpoolID);  //NEED TO MAKE IT SO NO CARPOOL CANNOT HAVE A NULL ENTRY
-		
+      alert("total_time (in seconds): " + total_time);
+	return total_time;	
 
     }
   });
