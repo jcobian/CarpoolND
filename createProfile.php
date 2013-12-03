@@ -41,7 +41,7 @@ function checkPasswordsMatch() {
 </head>
 <body>
 <center><h2> Create Your Profile</h2></center>
-<form action="insertProfile.php" method="get">
+<form action="insertProfile.php" method="post">
 <div class="insertForm">
 <div class= "form-group"><label for="username">Email: <input required name="username" id="username" onchange="checkEmail();"/></div>
 <div class= "form-group"><label for="password">Password: <input name="password" type="password" id="password"/></div>
