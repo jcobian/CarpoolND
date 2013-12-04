@@ -111,6 +111,9 @@ var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var map;
 var geocoder;
+var isDone = false;
+var increment = 0;
+var resultsArray = new Array();
 window.onload = function() {
 
  updateTime();
@@ -145,6 +148,15 @@ function initialize() {
   directionsDisplay.setMap(map);
 }
 
+function callback() {
+	increment++;
+	if(increment == 2)
+	{
+		isDone = true;
+		increment = 0;
+	}	
+}
+
 function findTimes() {
 	var originsLatArray = <?php echo json_encode($originsLatArray);?>;
 	var originsLngArray = <?php echo json_encode($originsLngArray);?>;
@@ -154,28 +166,23 @@ function findTimes() {
 	var result=0;
 	var shortestDifference =0;
 	for(var index = 0; index < destLatArray.length; index++)
-	{	
-		//var initialTime = calcRouteWithoutWaypts(originsLatArray[index], originsLngArray[index], destLatArray[index], destLngArray[index]);
-		var waypointTime = calcRoute(originsLatArray[index], originsLngArray[index], destLatArray[index], destLngArray[index]);  //NEED TO MAKE IT SO NO CARPOOL CANNOT HAVE A NULL ENTRY
-		//alert(initialTime);
-		//alert(waypointTime);
-		var difference = waypointTime - initialTime;
-		//alert("difference is: " + difference);
-		if(index == 0){
-			shortestDifference = difference;
-			result = carpoolIDArray[index];
+	{
 
-		}
-		else if (difference < shortestDifference){
-			shortestDifference = difference;
-			result = carpoolIDArray[index];
-		}
+		var thisInterval = setInterval(function(){
+			if(isDone) {
+				alert("got here");
+				isDone = false;
+				clearInterval(this);
+				//continue;
+			}
+			var initialTime = calcRouteWithoutWaypts(originsLatArray[index], originsLngArray[index], destLatArray[index], destLngArray[index], callback);
+			var waypointTime = calcRoute(originsLatArray[index], originsLngArray[index], destLatArray[index], destLngArray[index], callback);
+			
+		}, 1000);	
 	}
-	alert("shortest time: " + shortestDifference);
-	alert("carpoolid: " + result);
 }
 
-function calcRoute(startLat, startLng, endLat, endLng) {
+function calcRoute(startLat, startLng, endLat, endLng, callback) {
   var driverStart = new google.maps.LatLng(startLat, startLng);
   var driverEnd = new google.maps.LatLng(endLat, endLng);
   var passengerStart = document.getElementById('start').value;
@@ -203,7 +210,7 @@ function calcRoute(startLat, startLng, endLat, endLng) {
       for(var i = 0; i < response.routes[0].legs.length; i++) {
         total_time = total_time + response.routes[0].legs[i].duration.value;
       }
-      alert("total_time (in seconds): " + total_time);
+	callback();
 	return total_time;	
     }
   });
@@ -211,7 +218,7 @@ function calcRoute(startLat, startLng, endLat, endLng) {
 }
 
 
-function calcRouteWithoutWaypts(startLat, startLng, endLat, endLng) {
+function calcRouteWithoutWaypts(startLat, startLng, endLat, endLng, callback) {
   var driverStart = new google.maps.LatLng(startLat, startLng);
   var driverEnd = new google.maps.LatLng(endLat, endLng);
 
@@ -227,7 +234,7 @@ function calcRouteWithoutWaypts(startLat, startLng, endLat, endLng) {
       for(var i = 0; i < response.routes[0].legs.length; i++) {
         total_time = total_time + response.routes[0].legs[i].duration.value;
       }
-      alert("total_time (in seconds): " + total_time);
+      callback();
 	return total_time;	
 
     }
