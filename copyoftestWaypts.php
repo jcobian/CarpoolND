@@ -121,6 +121,9 @@ var isDone = new Boolean();
 isDone=false;
 var increment = 0;
 var resultsArray = new Array();
+var initialTimesArray = new Array();
+var waypointsTimesArray = new Array();
+
 window.onload = function() {
 
  updateTime();
@@ -155,17 +158,37 @@ function initialize() {
   directionsDisplay.setMap(map);
 }
 
-function callback() {
+function callback(index,arrType,len,time) {
 	increment++;
-	if(increment == 2)
+	//alert("callback called");
+	if(arrType==0) {
+		initialTimesArray[index] = time;
+	} else {
+		waypointsTimesArray[index] = time;
+	}
+	var limit = len*2;
+	if(increment == limit)
 	{
+		alert("Limit hit");
 		isDone = true;
 		increment = 0;
+		var size1 = initialTimesArray.length;
+		var size2 = waypointsTimesArray.length;
+		var c = 0;
+		var c2=0;
+		for(var i=0;i<size1;i++) {
+			if(initialTimesArray[i] != 0) {
+				c++; //lol
+			}
+			if(waypointsTimesArray[i] !=0) {
+				c2++;
+			}
+		}
+		alert("Size 1 = " + size1 + " Size 2 = " + size2);
 	}	
 }
 
 function findTimes() {
-	alert("in find times");
 	var originsLatArray = <?php echo json_encode($originsLatArray);?>;
 	var originsLngArray = <?php echo json_encode($originsLngArray);?>;
 	var destLatArray = <?php echo json_encode($endLatArray);?>;
@@ -173,25 +196,30 @@ function findTimes() {
 	var carpoolIDArray = <?php echo json_encode($carpoolIDArray);?>;
 	var len = carpoolIDArray.length;
 	
-	alert(len);
+	alert("Number of carpools = " + len);
 	for(var index = 0; index < len; index++)
 	{
+
+			var initialTime = calcRouteWithoutWaypts(originsLatArray[index], originsLngArray[index], destLatArray[index], destLngArray[index], callback,index,len);
+			var waypointTime = calcRoute(originsLatArray[index], originsLngArray[index], destLatArray[index], destLngArray[index], callback,index,len);		
 		//alert("something else");
+		/*
 		var thisInterval = setInterval(function(){
 			if(isDone) {
-				alert("got here");
+				alert("Done calculating calcX and Y");
 				isDone = false;
 				clearInterval(this);
 				//continue;
 			}
-			var initialTime = calcRouteWithoutWaypts(originsLatArray[index], originsLngArray[index], destLatArray[index], destLngArray[index], callback);
-			var waypointTime = calcRoute(originsLatArray[index], originsLngArray[index], destLatArray[index], destLngArray[index], callback);
 			
-		}, 1000);	
+			
+		}, 1000);*/
+		
+			
 	}
 }
 
-function calcRoute(startLat, startLng, endLat, endLng, callback) {
+function calcRoute(startLat, startLng, endLat, endLng, callback,index,len) {
   var driverStart = new google.maps.LatLng(startLat, startLng);
   var driverEnd = new google.maps.LatLng(endLat, endLng);
   var passengerStart = document.getElementById('start').value;
@@ -214,20 +242,20 @@ function calcRoute(startLat, startLng, endLat, endLng, callback) {
   };
   directionsService.route(riderRequest, function(response, status) {
     if (status == google.maps.DirectionsStatus.OK) {
-      directionsDisplay.setDirections(response);
+      //directionsDisplay.setDirections(response);
       var total_time = 0;
       for(var i = 0; i < response.routes[0].legs.length; i++) {
         total_time = total_time + response.routes[0].legs[i].duration.value;
       }
-	callback();
-	return total_time;	
+	callback(index,1,len,total_time);
+	//return total_time;	
     }
   });
   
 }
 
 
-function calcRouteWithoutWaypts(startLat, startLng, endLat, endLng, callback) {
+function calcRouteWithoutWaypts(startLat, startLng, endLat, endLng, callback,index,len) {
   var driverStart = new google.maps.LatLng(startLat, startLng);
   var driverEnd = new google.maps.LatLng(endLat, endLng);
 
@@ -238,12 +266,12 @@ function calcRouteWithoutWaypts(startLat, startLng, endLat, endLng, callback) {
   };
   directionsService.route(riderRequest, function(response, status) {
     if (status == google.maps.DirectionsStatus.OK) {
-      directionsDisplay.setDirections(response);
+      //directionsDisplay.setDirections(response);
       var total_time = 0;
       for(var i = 0; i < response.routes[0].legs.length; i++) {
         total_time = total_time + response.routes[0].legs[i].duration.value;
       }
-      callback();
+      	callback(index,0,len,total_time);
 	return total_time;	
 
     }

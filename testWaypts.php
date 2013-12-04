@@ -155,12 +155,13 @@ function findTimes() {
 
 	var len=carpoolIDArray.length;
 	alert(len);
-	for(var index = 0; index<5;index++)
+	for(var index = 0; index<len;index++)
 	{	
 		 calcRouteWithoutWaypts(originsLatArray[index], originsLngArray[index], destLatArray[index], destLngArray[index], resultCarpoolIDs, carpoolIDArray[index]);
 		 
 	}
 	//alert("Results len = " + resultCarpoolIDs.length);
+	var newLen =
 	for(var i=0;i<resultCarpoolIDs.length;i++) {
 		alert(i + " = " + resultCarpoolIDs[i]);
 	}
