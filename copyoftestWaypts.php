@@ -158,6 +158,7 @@ function callback() {
 }
 
 function findTimes() {
+	alert("in find times");
 	var originsLatArray = <?php echo json_encode($originsLatArray);?>;
 	var originsLngArray = <?php echo json_encode($originsLngArray);?>;
 	var destLatArray = <?php echo json_encode($endLatArray);?>;
@@ -167,7 +168,7 @@ function findTimes() {
 	var shortestDifference =0;
 	for(var index = 0; index < destLatArray.length; index++)
 	{
-
+		alert("something else");
 		var thisInterval = setInterval(function(){
 			if(isDone) {
 				alert("got here");
