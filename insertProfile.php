@@ -9,11 +9,13 @@ p {font-size:14px}
 p.Helv{font-family:Helvetica,serif}
 </style>
 <?php
-$email = $_GET['username'];
-$firstname = $_GET['firstname'];
-$lastname = $_GET['lastname'];
-$phonenumber = $_GET['phonenumber'];
-$password = $_GET['password'];
+$email = $_POST['username'];
+$firstname = $_POST['firstname'];
+$lastname = $_POST['lastname'];
+$phonenumber = $_POST['phonenumber'];
+$phonenumber2 = $_POST['phonenumber2'];
+$phonenumber3 = $_POST['phonenumber3'];
+$password = $_POST['password'];
 $password = md5($password);
 
 $c = oci_connect('jwassel', 'jasonwassel', '//localhost/curt');
@@ -21,6 +23,8 @@ if (!$c) {
     $e = oci_error();   // For oci_connect errors do not pass a handle
     trigger_error(htmlentities($e['message']), E_USER_ERROR);
 }
+$phonenumber = $phonenumber.'-'.$phonenumber2.'-'.$phonenumber3;
+
 
 $q = 'insert into users (username,firstname,lastname,phonenumber,password) values (:t, :v, :w, :x,:z)';
 //Parse that SQL query into a statement
@@ -36,7 +40,11 @@ oci_bind_by_name($s, ":z", $password);
 oci_execute($s);
 
 oci_close($c);
-header("Location:index.html");
+
+session_start();
+$_SESSION['username']=$email;
+header("Location:homePage.php");
+
 ?>
 </head>
 <body>

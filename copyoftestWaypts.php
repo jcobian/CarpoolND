@@ -15,6 +15,11 @@ exit;
 <?php
 //Create a connection to the oracle database with the user xxx and the password yyy on the host zzz with the database www
 $c = oci_connect('jwassel', 'jasonwassel', '//localhost/curt');
+if (!$c) {
+    //$e = oci_error();
+    //trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+print "Hddd";
+}
 //Write some SQL code to get rows from the wizards table
 $q = 'select startlat from carpool';
 //Parse that SQL query into a statement
@@ -26,6 +31,7 @@ $originsLatArray = array();
 
 while ($row = oci_fetch_array($s,OCI_ASSOC)) {
 	foreach($row as $column) {
+		print "a  ";
 		array_push($originsLatArray, "$column");
 	}
 }
@@ -76,7 +82,7 @@ while ($row = oci_fetch_array($s,OCI_ASSOC)) {
 }
 
 //5th query
-$q = 'select carpoolid from carpool';
+$q = 'select carpool_id from carpool';
 //Parse that SQL query into a statement
 $s = oci_parse($c, $q);
 //Execute the SQL statement/query
@@ -111,7 +117,8 @@ var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var map;
 var geocoder;
-var isDone = false;
+var isDone = new Boolean();
+isDone=false;
 var increment = 0;
 var resultsArray = new Array();
 window.onload = function() {
@@ -164,11 +171,12 @@ function findTimes() {
 	var destLatArray = <?php echo json_encode($endLatArray);?>;
 	var destLngArray = <?php echo json_encode($endLngArray);?>;
 	var carpoolIDArray = <?php echo json_encode($carpoolIDArray);?>;
-	var result=0;
-	var shortestDifference =0;
-	for(var index = 0; index < destLatArray.length; index++)
+	var len = carpoolIDArray.length;
+	
+	alert(len);
+	for(var index = 0; index < len; index++)
 	{
-		alert("something else");
+		//alert("something else");
 		var thisInterval = setInterval(function(){
 			if(isDone) {
 				alert("got here");

@@ -48,7 +48,7 @@ function checkPasswordsMatch() {
 <div class= "form-group"><label for="confirmPassword">Confirm Password: <input name="confirmPassword" id="confirmPassword" type="password" onchange="checkPasswordsMatch();"/></div>
 <div class= "form-group"><label for="firstname">First Name: <input name="firstname"/></div>
 <div class= "form-group"><label for="lastname">Last Name: <input name="lastname"/></div>
-<div class= "form-group"><label for="phonenumber">Phone Number: <input name="phonenumber"/></div>
+<div class= "form-group"><label for="phonenumber">Phone Number: <input name="phonenumber" maxlength="3"size="3"/><label for="phonenumber2">-<input name="phonenumber2" maxlength="3" size="3"/><label for="phonenumber3">-<input name="phonenumber3" maxlength="4" size="4"/></div>
 </div>
 <input type="submit"/>
 </form>
