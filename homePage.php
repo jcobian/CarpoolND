@@ -27,6 +27,8 @@ function clickedButton(sel) {
         }
         if(sel.id=="userSettings") {
                 window.location.href="userSettings.php";
+        if(sel.id=="searchSearchers") {
+                window.location.href="searchSearchers.php";
         }
 	if(sel.id=="logout") {
                 window.location.href="logout.php";
@@ -50,7 +52,8 @@ function clickedButton(sel) {
 <div id="menu" align="center" style="margin: 0 auto; margin-top:100px">
 <b><button id="createCarpool" type="button" onclick="clickedButton(this)"> I Am a Driver</button></b><br></br>
 <button id="insertSearcher" type="button" onclick="clickedButton(this)">  I am a Passenger</button><br></br>
-<button id="searchCarpools" type="button" onclick="clickedButton(this)"> Search Carpools</button>
+<button id="searchCarpools" type="button" onclick="clickedButton(this)"> Search Carpools</button><br></br>
+<button id="searchSearchers" type="button" onclick="clickedButton(this)"> View All People Looking For Rides</button>
 </div>
 
 <div id="content1" style="position:absolute; left:48%; bottom:20px">
