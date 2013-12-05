@@ -52,7 +52,7 @@ oci_close($c);
 </div>
 </select>
 <br></br>
-<input type="submit"/>
+<input value = "Delete Car" type="submit"/> 
 </form>
 </div>
 <div id="content1" style="position:absolute; left:18%; bottom:100px">
