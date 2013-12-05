@@ -11,6 +11,14 @@ exit;
 <head>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/style.css">
+<script type="text/javascript">
+function clickedButton(sel) {
+	if(sel.id=="Home") {
+		window.location.href="homePage.php";
+	}
+
+}
+</script>
  <style>
       #map-canvas {
         height: 90%;
@@ -116,8 +124,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
     <div id="map-canvas"></div>
 <form action="insertSearcher.php" method="get">
 <div class="insertForm" style="float:left">
-<div class="form-group"><label for="start">Starting Point: <input name="start" id="start" type="textbox" onchange="calcRoute(); codeAddress(this);"/></div>
-<div class ="form-group"><label for="end">End Point: <input name="end" id="end" onchange="calcRoute(); codeAddress(this);"/></div>
+<div class="form-group" style="color:white"><label for="start" class = "required">Starting Point: <input name="start" id="start" type="textbox" onchange="calcRoute(); codeAddress(this);"/></div>
+<div class ="form-group"  style="color:white"><label for="end">End Point: <input name="end" id="end" onchange="calcRoute(); codeAddress(this);"/></div>
 <input name="startLat" id="startLat" type="hidden"/>
 <input name="startLong" id="startLong" type="hidden"/>
 <input name="endLat" id="endLat" type="hidden"/>
@@ -297,6 +305,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <input type="submit"/>
 </div>
 </form>
+<div id="content1" style="position:absolute; left:18%; bottom:100px">
+<button id="Home" type="button" onclick="clickedButton(this)"> Home</button>
 </body>
 </html>
 

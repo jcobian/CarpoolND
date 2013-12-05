@@ -11,6 +11,14 @@ exit;
 <head>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/style.css">
+<script type="text/javascript">
+function clickedButton(sel) {
+	if(sel.id=="Home") {
+		window.location.href="homePage.php";
+	}
+
+}
+</script>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <style>
@@ -119,14 +127,14 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <form action="insertCarpool.php" method="get">
 <div class="insertForm" style="float:left">
 
-<div class="form-group"><label for="start">Starting Point: <input name="start" id="start" type="textbox" onchange="calcRoute(); codeAddress(this);"/></div>
-<div class ="form-group"><label for="end">End Point: <input name="end" id="end" onchange="calcRoute(); codeAddress(this);"/></div>
+<div class="form-group"><label for="start" class="required" style="color:white">Starting Point: <input name="start" id="start" type="textbox" onchange="calcRoute(); codeAddress(this);"/></div>
+<div class ="form-group" style="color:white"><label for="end" class="required">End Point: <input name="end" id="end" onchange="calcRoute(); codeAddress(this);"/></div>
 <input name="startLat" id="startLat" type="hidden"/>
 <input name="startLong" id="startLong" type="hidden"/>
 <input name="endLat" id="endLat" type="hidden"/>
 <input name="endLong" id="endLong" type="hidden"/>
 <div class = "form-control">
-<span>Start Date: </span>
+<span class="required">Start Date: </span>
 <select name="startMonth" id = "startMonth">
 <option value=01> January </option>
 <option value=02> February </option>
@@ -210,7 +218,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 </select>
 </div>
 <div class = "form-control">
-<span>ETA Date: </span>
+<span class="required">ETA Date: </span>
 <select name="endMonth" id = "endMonth">
 <option value=01> January </option>
 <option value=02> February </option>
@@ -293,9 +301,9 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <option value="pm" selected> PM </option>
 </select>
 </div>
-<div class = "form-group"><label for="description">Description: <input name="description"/></div>
+<div class = "form-group" style="color:white"><label for="description">Description: <input name="description"/></div>
 <div class = "form-control">
-<span>Open Seats: </span>
+<span class="required">Open Seats: </span>
 <select name="openSeats">
 <option value=1> 1 </option>
 <option value=2> 2 </option>
@@ -308,7 +316,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <option value=9> 9 </option>
 </select>
 </div>
-<span>Car: </span><select name="carId">
+<span style="color:white">Car: </span><select name="carId">
 <?php
 $c = oci_connect('jwassel', 'jasonwassel', '//localhost/curt');
 if (!$c) {
@@ -337,5 +345,7 @@ oci_close($c);
 <input type="submit"/>
 </div> <!--closes insertForm -->
 </form>
+<div id="content1" style="position:absolute; left:18%; bottom:100px">
+<button id="Home" type="button" onclick="clickedButton(this)"> Home</button>
 </body>
 </html>

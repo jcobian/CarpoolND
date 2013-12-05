@@ -41,7 +41,7 @@ function clickedButton(sel) {
 <h1 style="margin-bottom:0;">CarpoolND</h1></div>
 
 <div id="header" style="position:relative; float:right; right:50px">
-<h4>User: <?php print $username ?></h4></div>
+<h4 style="background-color:white">User: <?php print $username ?></h4></div>
 
 <div id="content" style="position:relative; float:right; right:-13px; top:40px">
 <button id="userSettings"type="button" onclick="clickedButton(this)"> Settings</button></div>
@@ -53,7 +53,7 @@ function clickedButton(sel) {
 <button id="searchCarpools" type="button" onclick="clickedButton(this)"> Search Carpools</button>
 </div>
 
-<div id="content1" style="position:absolute; left:48%; bottom:0px">
+<div id="content1" style="position:absolute; left:48%; bottom:20px">
 <button id="logout"type="button" onclick="clickedButton(this)"> Logout</button></div>
 
 <!--<table width="100%" >
