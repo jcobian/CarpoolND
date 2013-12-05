@@ -15,9 +15,9 @@ exit;
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <script type="text/javascript">
 function clickedButton(sel) {
-	if(sel.id=="goBack") {
+	if(sel.id=="goBack") 
 		window.location.href="homePage.php";
-	}
+	
 
 }
 
@@ -33,7 +33,7 @@ function joinClicked(sel, email) {
 <center><h2> Requested Rides </h2></center>
 <?php
 $c = oci_connect('jwassel', 'jasonwassel', '//localhost/curt');
-$q = 'select r.request_id, r.username, c.startname, c.endname, c.startdate, c.enddate from request r, carpool c where c.carpool_id = r.carpool_id and c.driver = :t';
+$q = 'select distinct r.request_id, r.username, c.startname, c.endname, c.startdate, c.enddate from request r, carpool c where c.carpool_id = r.carpool_id and c.driver = :t and r.accepted = 0';
 
 //Parse that SQL query into a statement
 
@@ -71,7 +71,7 @@ while ($row = oci_fetch_array($s,OCI_ASSOC)) {
         print '<td>'.$column.'</td>';
 
     }
-    print '<td><button type ="button" onclick="joinClicked(this,\''.$email.'\')" id = "'.$request_id.'">Accept</button></td>';
+    print '<td><button type ="button" onclick="joinClicked(this,\''.$email.'\'); clickedButton(this);" id = "'.$request_id.'">Accept</button></td>';
     //Thus ends the $row...
     print '<tr>';
 }
