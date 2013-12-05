@@ -33,7 +33,7 @@ $s = oci_parse($c, $q);
 oci_execute($s);
 
 //We want to print out the results of the query into an HTML table; so we'll need to write an HTML table. This can be done by closing the PHP and writing straight HTML code, or you can have PHP print the HTML code. Let's have PHP print the HTML for now.
-print '<table>';
+print '<table border = "1" style="background-color:#FFFFFF; overflow-y:scroll; height:auto; display:block;">';
 //We want to loop through all of the rows from the result of the query
           print '<tr>';
   print '<td><b>Starting Point </b></td> <td><b>Destination</b></td> <td><b>Start Date</b></td> <td><b>End Date</b></td> <td><b>Description</b></td> <td><b>Open Seats</b></td> <td><b>Driver</b></td>';

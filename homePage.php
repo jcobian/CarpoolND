@@ -22,9 +22,9 @@ function clickedButton(sel) {
         if(sel.id=="insertSearcher") {
                 window.location.href="createSearcher.php";
         }
-        /*if(sel.id=="searchCarpools") {
+        if(sel.id=="searchCarpools") {
                 window.location.href="searchCarpool.php";
-        }*/
+        }
         if(sel.id=="userSettings") {
                 window.location.href="userSettings.php";
         }
@@ -49,7 +49,9 @@ function clickedButton(sel) {
 
 <div id="menu" align="center" style="margin: 0 auto; margin-top:100px">
 <b><button id="createCarpool" type="button" onclick="clickedButton(this)"> I Am a Driver</button></b><br></br>
-<button id="insertSearcher" type="button" onclick="clickedButton(this)">  I am a Passenger</button></div>
+<button id="insertSearcher" type="button" onclick="clickedButton(this)">  I am a Passenger</button><br></br>
+<button id="searchCarpools" type="button" onclick="clickedButton(this)"> Search Carpools</button>
+</div>
 
 <div id="content1" style="position:absolute; left:48%; bottom:0px">
 <button id="logout"type="button" onclick="clickedButton(this)"> Logout</button></div>
