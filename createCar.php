@@ -11,14 +11,22 @@ exit;
 <head>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/style.css">
+<script type="text/javascript">
+function clickedButton(sel) {
+	if(sel.id=="goBack") {
+		window.location.href="userSettings.php";
+	}
+
+}
+</script>
 </head>
 <body>
 <center><h2> Add a Car to your Profile</h2></center>
 <form action="insertCar.php" method="get" role="form">
 <div class="insertForm">
-<div class="form-group"><p><label for="Make" class="required">Make: </label><input name="Make"/></p></div>
-<div class="form-group"><p><label for="Model">Model: </label><input name="Model"/></p></div>
-<div class="form-group"><p><span>Year: </span>
+<div class="form-group"><p><label for="Make" class="required" style="color:white">Make: </label><input name="Make"/></p></div>
+<div class="form-group"><p><label for="Model" style="color:white">Model: </label><input name="Model"/></p></div>
+<div class="form-group" style="color:white"><p><span>Year: </span>
 <select name="Year">
 <option value=2014>2014</option>
 <option value=2013>2013</option>
@@ -57,7 +65,7 @@ exit;
 <option value=1980>1980</option>
 <option value=1979>Older Than 1980</option>
 </select></p></div>
-<div class="form-group"><p><span class="required">Number of Seats: </span>
+<div class="form-group"><p><span class="required" style="color:white">Number of Seats:  </span>
 <select name="Numberofseats">
 <option value=2>2</option>
 <option value=3>3</option>
@@ -69,7 +77,7 @@ exit;
 <option value=9>9</option>
 <option value=10>10</option>
 </select></p></div>
-<div class="form-group"><p><span>Car Details: </span>
+<div class="form-group" style="color:white"><p><span>Car Details: </span>
 <textarea rows="4" cols="50" name="Details"
 placeholder="Enter details about your car. Ex: Air conditioned, condition of car, airbags, etc.">
 </textarea>
@@ -78,6 +86,8 @@ placeholder="Enter details about your car. Ex: Air conditioned, condition of car
 <input type="submit"/>
 
 </form>
+<div id="content1" style="position:absolute; left:18%; bottom:100px">
+<button id="goBack" type="button" onclick="clickedButton(this)"> Go Back</button>
 </body>
 </html>
 

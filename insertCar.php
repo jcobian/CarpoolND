@@ -15,8 +15,8 @@ p {font-size:14px}
 p.Helv{font-family:Helvetica,serif}
 </style>
 <?php
-$Make = $_GET['Make'];
-$Model = $_GET['Model'];
+$Make = strtoupper($_GET['Make']);
+$Model = strtoupper($_GET['Model']);
 $Year = $_GET['Year'];
 $Numberofseats = $_GET['Numberofseats'];
 $Details = $_GET['Details'];

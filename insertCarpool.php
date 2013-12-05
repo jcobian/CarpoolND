@@ -11,8 +11,8 @@ exit;
 <head>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <?php
-$startName = $_GET['start'];
-$endName = $_GET['end'];
+$startName = strtoupper($_GET['start']);
+$endName = strtoupper($_GET['end']);
 $startLat = $_GET['startLat'];
 $startLong = $_GET['startLong'];
 $endLat = $_GET['endLat'];
