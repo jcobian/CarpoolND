@@ -111,6 +111,14 @@ var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var map;
 var geocoder;
+var isDone = new Boolean();
+var increment = 0;
+var carpoolIDResults = new Array();
+var originsLatArray = <?php echo json_encode($originsLatArray);?>;
+var originsLngArray = <?php echo json_encode($originsLngArray);?>;
+var destLatArray = <?php echo json_encode($endLatArray);?>;
+var destLngArray = <?php echo json_encode($endLngArray);?>;
+var carpoolIDArray = <?php echo json_encode($carpoolIDArray);?>;
 window.onload = function() {
 
  updateTime();
@@ -144,32 +152,59 @@ function initialize() {
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
   directionsDisplay.setMap(map);
 }
+function callback(currentIndex,len,nextCarpoolID) {
+	//alert("Callback called. Completed inc = " +increment + " and curr index = " + currentIndex + " and len = " + len);
+	increment++;
+	if(currentIndex==len) {
+		isDone=true;
+		alert("Limit reached");
+		var newLen = carpoolIDResults.length;
+		for(var i=0;i<newLen;i++) {
+			alert(i + " = " + carpoolIDResults[i]);
+		}
+		
+		
+	} else {
+		 setTimeout(function(){calcRouteWithoutWaypts(originsLatArray[increment], originsLngArray[increment], destLatArray[increment], destLngArray[increment],carpoolIDResults,carpoolIDArray[increment],len,currentIndex+1)},1000);
 
-function findTimes() {
-	var originsLatArray = <?php echo json_encode($originsLatArray);?>;
-	var originsLngArray = <?php echo json_encode($originsLngArray);?>;
-	var destLatArray = <?php echo json_encode($endLatArray);?>;
-	var destLngArray = <?php echo json_encode($endLngArray);?>;
-	var carpoolIDArray = <?php echo json_encode($carpoolIDArray);?>;
-	var resultCarpoolIDs = new Array();
-
-	var len=carpoolIDArray.length;
-	alert(len);
-	for(var index = 0; index<len;index++)
-	{	
-		 calcRouteWithoutWaypts(originsLatArray[index], originsLngArray[index], destLatArray[index], destLngArray[index], resultCarpoolIDs, carpoolIDArray[index]);
-		 
-	}
-	//alert("Results len = " + resultCarpoolIDs.length);
-	var newLen =
-	for(var i=0;i<resultCarpoolIDs.length;i++) {
-		alert(i + " = " + resultCarpoolIDs[i]);
+		
 	}
 
 }
+function findTimes() {
+		var len=carpoolIDArray.length;
+		alert(len);
+		var currentIndex = 1;
+		 calcRouteWithoutWaypts(originsLatArray[0], originsLngArray[0], destLatArray[0], destLngArray[0],carpoolIDResults,carpoolIDArray[0],len,currentIndex);
+		 
 
-function calcRoute(startLat, startLng, endLat, endLng,initialTime, resultCarpoolIDs, carpoolID) {
+}
+function calcRouteWithoutWaypts(startLat, startLng, endLat, endLng, carpoolIDResults,carpoolID,len,currentIndex) {
   var driverStart = new google.maps.LatLng(startLat, startLng);
+  var driverEnd = new google.maps.LatLng(endLat, endLng);
+
+  var riderRequest = {
+      origin:driverStart,
+      destination:driverEnd,
+      travelMode: google.maps.DirectionsTravelMode.DRIVING
+  };
+  directionsService.route(riderRequest, function(response, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      //directionsDisplay.setDirections(response);
+      var total_time_without_waypts = 0;
+      for(var i = 0; i < response.routes[0].legs.length; i++) {
+        total_time_without_waypts = total_time_without_waypts + response.routes[0].legs[i].duration.value;
+      }
+      //alert("total_time without waypts (in seconds): " + total_time_without_waypts);
+	calcRoute(startLat, startLng, endLat, endLng,total_time_without_waypts, carpoolIDResults, carpoolID,len,currentIndex);  
+    }
+  });
+}
+
+
+
+function calcRoute(startLat, startLng, endLat, endLng,initialTime, carpoolIDResults,carpoolID,len,currentIndex) {
+var driverStart = new google.maps.LatLng(startLat, startLng);
   var driverEnd = new google.maps.LatLng(endLat, endLng);
   var passengerStart = document.getElementById('start').value;
   var passengerEnd = document.getElementById('end').value;
@@ -196,45 +231,20 @@ function calcRoute(startLat, startLng, endLat, endLng,initialTime, resultCarpool
       for(var i = 0; i < response.routes[0].legs.length; i++) {
         total_time_with_waypts = total_time_with_waypts + response.routes[0].legs[i].duration.value;
       }
-	alert("Initial time = " + initialTime + " Waypoints time = " + total_time_with_waypts);
+	//alert("Initial time = " + initialTime + " Waypoints time = " + total_time_with_waypts);
 	if(initialTime < total_time_with_waypts) {
-		resultCarpoolIDs.push(carpoolID);
-		alert("Added, carpool id = " + carpoolID + " len is now = " + resultCarpoolIDs.length);
+		carpoolIDResults.push(carpoolID);
+		//alert("Added, carpool id = " + carpoolID + " len is now = " + carpoolIDResults.length);
 
 	}	
 
-
+	callback(currentIndex,len);
 		
     }
   });
   
 }
 
-
-function calcRouteWithoutWaypts(startLat, startLng, endLat, endLng, resultCarpoolIDs, carpoolID) {
-
-  var driverStart = new google.maps.LatLng(startLat, startLng);
-  var driverEnd = new google.maps.LatLng(endLat, endLng);
-
-  var riderRequest = {
-      origin:driverStart,
-      destination:driverEnd,
-      travelMode: google.maps.DirectionsTravelMode.DRIVING
-  };
-  directionsService.route(riderRequest, function(response, status) {
-    if (status == google.maps.DirectionsStatus.OK) {
-      //directionsDisplay.setDirections(response);
-      var total_time_without_waypts = 0;
-      for(var i = 0; i < response.routes[0].legs.length; i++) {
-        total_time_without_waypts = total_time_without_waypts + response.routes[0].legs[i].duration.value;
-      }
-      //alert("total_time without waypts (in seconds): " + total_time_without_waypts);
-	calcRoute(startLat, startLng, endLat, endLng,total_time_without_waypts, resultCarpoolIDs, carpoolID);  //NEED TO MAKE IT SO NO CARPOOL CANNOT HAVE A NULL ENTRY
-		
-
-    }
-  });
-}
 
   function codeAddress(sel) {
     var isEnd;
