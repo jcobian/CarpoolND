@@ -203,7 +203,7 @@ print '</table>';
 if(isset($_GET['getValue']))
 {
 	$carpid = $_GET['getValue'];
-	$q = 'insert into request(username, carpool_id) values(:t, :u)';
+	$q = 'insert into request(username, carpool_id, accepted, request_id) values(:t, :u, 0, seq_request_id.nextval)';
 	$s = oci_parse($c, $q);
 	oci_bind_by_name($s, ":t", $_SESSION['username']);
 	oci_bind_by_name($s, ":u", $carpid);
