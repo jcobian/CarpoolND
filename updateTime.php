@@ -10,7 +10,16 @@ exit;
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-<div>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<script type="text/javascript">
+function clickedButton(sel) {
+	if(sel.id=="goBack") {
+		window.location.href="userSettings.php";
+	}
+
+}
+</script>
+<div style="background-color:white">
 <?php
 $username = $_SESSION['username'];
 //Create a connection to the oracle database with the user xxx and the password yyy on the host zzz with the database www
@@ -51,7 +60,7 @@ print '</table>';
 </div>
 </head>
 <body>
-<form action="confirmTimeChange.php" method="get">
+<form action="confirmTimeChange.php" method="get" style="background-color: white">
 <div class="insertForm">
 Carpool Id: <input name="carpool_id"/> <br></br>
 New Start Time: <input name="startTime"/><br></br>
@@ -59,5 +68,7 @@ New End Time: <input name="endTime"/><br></br>
 </div>
 <input type="submit"/>
 </form>
+<div id="content1" style="position:absolute; left:18%; bottom:100px">
+<button id="goBack" type="button" onclick="clickedButton(this)"> Go Back</button>
 </body>
 </html>
