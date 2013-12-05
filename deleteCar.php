@@ -10,6 +10,15 @@ exit;
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<script type="text/javascript">
+function clickedButton(sel) {
+	if(sel.id=="goBack") {
+		window.location.href="userSettings.php";
+	}
+
+}
+</script>
 <?php
 $c = oci_connect('jwassel', 'jasonwassel', '//localhost/curt');
 if (!$c) {
@@ -43,9 +52,11 @@ oci_close($c);
 </div>
 </select>
 <br></br>
-<input type="submit"/>
+<input value = "Delete Car" type="submit"/> 
 </form>
 </div>
+<div id="content1" style="position:absolute; left:18%; bottom:100px">
+<button id="goBack" type="button" onclick="clickedButton(this)"> Go Back</button>
 </body>
 </html>
 

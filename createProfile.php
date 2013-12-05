@@ -43,12 +43,12 @@ function checkPasswordsMatch() {
 <center><h2> Create Your Profile</h2></center>
 <form action="insertProfile.php" method="post">
 <div class="insertForm">
-<div class= "form-group"><label for="username" class="required">Email: <input required name="username" id="username" onchange="checkEmail();"/></div>
-<div class= "form-group"><label for="password" class="required">Password: <input name="password" type="password" id="password"/></div>
-<div class= "form-group"><label for="confirmPassword" class="required">Confirm Password: <input name="confirmPassword" id="confirmPassword" type="password" onchange="checkPasswordsMatch();"/></div>
-<div class= "form-group"><label for="firstname" class="required">First Name: <input name="firstname"/></div>
-<div class= "form-group"><label for="lastname" class="required">Last Name: <input name="lastname"/></div>
-<div class= "form-group"><label for="phonenumber">Phone Number: <input name="phonenumber" maxlength="3"size="3"/><label for="phonenumber2">-<input name="phonenumber2" maxlength="3" size="3"/><label for="phonenumber3">-<input name="phonenumber3" maxlength="4" size="4"/></div>
+<div class= "form-group"><label for="username" class="required" style="color:white">Email: <input required name="username" id="username" onchange="checkEmail();"/></div>
+<div class= "form-group"><label for="password" class="required" style="color:white">Password: <input name="password" type="password" id="password"/></div>
+<div class= "form-group"><label for="confirmPassword" class="required" style="color:white">Confirm Password: <input name="confirmPassword" id="confirmPassword" type="password" onchange="checkPasswordsMatch();"/></div>
+<div class= "form-group"><label for="firstname" class="required" style="color:white">First Name: <input name="firstname"/></div>
+<div class= "form-group"><label for="lastname" class="required" style="color:white">Last Name: <input name="lastname"/></div>
+<div class= "form-group"><label for="phonenumber" style="color:white">Phone Number: <input name="phonenumber" maxlength="3"size="3"/><label for="phonenumber2">-<input name="phonenumber2" maxlength="3" size="3"/><label for="phonenumber3">-<input name="phonenumber3" maxlength="4" size="4"/></div>
 </div>
 <input type="submit"/>
 </form>
