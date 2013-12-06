@@ -22,11 +22,23 @@ function clickedButton(sel) {
 }
 
 function joinClicked(sel, email) {
+	
 	var getValue = sel.id;
 	alert("You have accepted " + email + " into your carpool!");
 	window.location = "?getValue=" + getValue;
-
 }
+
+function denyClicked(sel, email) {
+	
+	var getValue = sel.id;
+	alert("You have denied " + email + " into your carpool.");
+	window.location = "?denyValue=" + getValue;
+}
+
+function refreshPage(){
+	window.location.href = "searchRequest.php";
+}
+
 </script>
 </head>
 <body>
@@ -47,7 +59,7 @@ oci_execute($s);
 print '<table border = "1" style="background-color:#FFFFFF; overflow-y:scroll; height:auto; display:block;">';
 //We want to loop through all of the rows from the result of the query
           print '<tr>';
-  print '<td><b>User </b></td> <td><b>Start Point</b></td> <td><b>Destination </b></td> <td><b>Start Date</b></td> <td><b>End Date</b></td> <td><b></b></td>';
+  print '<td><b>User </b></td> <td><b>Start Point</b></td> <td><b>Destination </b></td> <td><b>Start Date</b></td> <td><b>End Date</b></td> <td><b></b></td> <td><b></b></td>';
 print '<tr>';
 while ($row = oci_fetch_array($s,OCI_ASSOC)) {
     //Inside the loop we have get one $row at a time, so we need to handle this with HTML:
@@ -67,11 +79,13 @@ while ($row = oci_fetch_array($s,OCI_ASSOC)) {
 	if ($i == 1){
 		$email = $column;
 	}
+        $i = $i + 1;
         	//Now we can print the current $column within the current $row inside of some HTML
         print '<td>'.$column.'</td>';
 
     }
     print '<td><button type ="button" onclick="joinClicked(this,\''.$email.'\'); clickedButton(this);" id = "'.$request_id.'">Accept</button></td>';
+    print '<td><button type ="button" onclick="denyClicked(this,\''.$email.'\'); clickedButton(this);" id = "'.$request_id.'">Deny</button></td>';
     //Thus ends the $row...
     print '<tr>';
 }
@@ -82,7 +96,7 @@ print '</table>';
 ?>
 <?php
 if(isset($_GET['getValue']))
-{
+{	
 	$requestid = $_GET['getValue'];
 	$q = 'update request set accepted = 1 where request_id = :u';
 	$s = oci_parse($c, $q);
@@ -100,11 +114,24 @@ if(isset($_GET['getValue']))
 			$carpid = $column;
 		}
 	}
-	print "HERE";
 	$q = 'update carpool set openseats = openseats - 1 where carpool_id = :c';
 	$s = oci_parse($c, $q);
 	oci_bind_by_name($s, ":c", $carpid);
 	oci_execute($s);
+	print '<script type="text/javascript">'.'refreshPage(); </script>';
+}
+?>
+
+<?php
+if(isset($_GET['denyValue']))
+{
+	$requestid = $_GET['denyValue'];
+	$q = 'delete from request where request_id = :u';
+	$s = oci_parse($c, $q);
+	//oci_bind_by_name($s, ":t", $_SESSION['username']);
+	oci_bind_by_name($s, ":u", $requestid);
+	oci_execute($s);
+	print '<script type="text/javascript">'.'refreshPage(); </script>';
 }
 ?>
 </div>
