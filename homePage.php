@@ -27,6 +27,7 @@ function clickedButton(sel) {
         }
         if(sel.id=="userSettings") {
                 window.location.href="userSettings.php";
+               }
         if(sel.id=="searchSearchers") {
                 window.location.href="searchSearchers.php";
         }

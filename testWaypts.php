@@ -154,13 +154,16 @@ function initialize() {
   directionsDisplay.setMap(map);
 }
 function addTable() {
+var s;
+alert("HEREEEE");
+	//	s = JSON.stringify( a );
 	    //$('#resultsTable').append('<table width="320" border="1"><tr><td colspan="2" rowspan="1">' + " wdw" + '</td></tr><tr><td width="118">' + "sxs" + '</td><td width="186">' + "xs" + '</td></tr></table>');
-	    $('#resultsTable').append(<?php
-
-		
+	    //$('#resultsTable').append(
+	    <?php
 	
-
-		 ?>);
+//$a = json_decode( $_COOKIE['s'], true );
+echo "Here";
+		 ?>/*)*/;
 
 }
 function callback(currentIndex,len,nextCarpoolID) {

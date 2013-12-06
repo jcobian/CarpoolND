@@ -100,6 +100,7 @@ if(isset($_GET['getValue']))
 			$carpid = $column;
 		}
 	}
+	print "HERE";
 	$q = 'update carpool set openseats = openseats - 1 where carpool_id = :c';
 	$s = oci_parse($c, $q);
 	oci_bind_by_name($s, ":c", $carpid);

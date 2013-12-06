@@ -19,6 +19,21 @@ if(!empty($_GET['Year']))
 if(!empty($_GET['openSeats']))
 	$openSeats = $_GET['openSeats'];
 
+if(!empty($_GET['endDay']))
+	$endDay = $_GET['endDay'];
+if(!empty($_GET['endMonth']))
+	$endMonth = $_GET['endMonth'];
+if(!empty($_GET['endYear']))
+	$endYear = $_GET['endYear'];
+if(!empty($_GET['startDay']))
+	$startDay = $_GET['startDay'];
+if(!empty($_GET['startMonth']))
+	$startMonth = $_GET['startMonth'];
+if(!empty($_GET['startYear']))
+	$startYear = $_GET['startYear'];			
+
+$startDateString = $startYear.'/'.$startMonth.'/'.$startDay;
+$endDateString = $endYear.'/'.$endMonth.'/'.$endDay;
 
 ?>
 <html>
@@ -29,6 +44,7 @@ if(!empty($_GET['openSeats']))
 window.onload = function() {
   document.getElementById("Year").selectedIndex = -1;
   document.getElementById("openSeats").selectedIndex = -1;
+  updateTime();
 }
 function clickedButton(sel) {
 	if(sel.id=="goBack") {
@@ -40,7 +56,41 @@ function joinClicked(sel, email) {
 	var getValue = sel.id;
 	alert("A notification has been sent to " + email + "!");
 	window.location = "?getValue=" + getValue;
+}
 
+function updateTime() {
+  document.getElementById("startMonth").selectedIndex = -1;
+  document.getElementById("startDay").selectedIndex = -1;
+  document.getElementById("startYear").selectedIndex = -1;
+
+  document.getElementById("endMonth").selectedIndex = -1;
+  document.getElementById("endDay").selectedIndex = -1;
+  document.getElementById("endYear").selectedIndex = -1;
+}
+
+function checkTimes(sel) {
+
+  var today = new Date();
+  var dd = today.getDate(); 
+  var mm = today.getMonth()+1;
+  var yyyy = today.getFullYear();
+  if(sel == 'startDateDropdown'&& document.getElementById("startMonth").value!=-1 && document.getElementById("startDay").value !=-1 && document.getElementById("startYear").value !=-1){
+  	var selectedDate = new Date(document.getElementById("startYear").value,document.getElementById("startMonth").value,  document.getElementById("startDay").value);
+  	if(selectedDate<today){
+  		document.getElementById("startMonth").value = mm;
+  		document.getElementById("startDay").value = dd;
+  		document.getElementById("startYear").value = yyyy;
+	}
+  }
+  
+  if(sel == 'endDateDropdown' && document.getElementById("endMonth").value!=-1 && document.getElementById("endDay").value !=-1 && document.getElementById("endYear").value !=-1){
+  	var selectedDate = new Date(document.getElementById("endYear").value,document.getElementById("endMonth").value,  document.getElementById("endDay").value);
+  	   	if(selectedDate<today){
+  	   		document.getElementById("endMonth").value = mm;
+  			document.getElementById("endDay").value = dd;
+  			document.getElementById("endYear").value = yyyy;
+  		}
+  }
 }
 </script>
 </head>
@@ -56,7 +106,7 @@ function joinClicked(sel, email) {
 	<option value=2014>2014</option>
 	<option value=2013>2013</option>
 	<option value=2012>2012</option>
-	<option value=2011 selected>2011</option>
+	<option value=2011>2011</option>
 	<option value=2010>2010</option>
 	<option value=2009>2009</option>
 	<option value=2008>2008</option>
@@ -103,6 +153,117 @@ function joinClicked(sel, email) {
 	<option value=8> 8 </option>
 	<option value=9> 9 </option>
 	</select>
+<br></br>	
+<span class="required">Leave on or After: </span>
+<select name="startMonth" id = "startMonth" class="startDateDropdown" onchange = "checkTimes('startDateDropdown');">
+<option value=01> January </option>
+<option value=02> February </option>
+<option value=03> March </option>
+<option value=04> April </option>
+<option value=05> May </option>
+<option value=06> June </option>
+<option value=07> July </option>
+<option value=08> August </option>
+<option value=09> September </option>
+<option value=10> October </option>
+<option value=11> November </option>
+<option value=12> December </option>
+</select>
+<select name="startDay" id = "startDay" class="startDateDropdown" onchange = "checkTimes('startDateDropdown');">
+<option value=01> 1 </option>
+<option value=02> 2 </option>
+<option value=03> 3 </option>
+<option value=04> 4 </option>
+<option value=05> 5 </option>
+<option value=06> 6 </option>
+<option value=07> 7 </option>
+<option value=08> 8 </option>
+<option value=09> 9 </option>
+<option value=10> 10 </option>
+<option value=11> 11 </option>
+<option value=12> 12 </option>
+<option value=13> 13 </option>
+<option value=14> 14 </option>
+<option value=15> 15 </option>
+<option value=16> 16 </option>
+<option value=17> 17 </option>
+<option value=18> 18 </option>
+<option value=19> 19 </option>
+<option value=20> 20 </option>
+<option value=21> 21 </option>
+<option value=22> 22 </option>
+<option value=23> 23 </option>
+<option value=24> 24 </option>
+<option value=25> 25 </option>
+<option value=26> 26 </option>
+<option value=27> 27 </option>
+<option value=28> 28 </option>
+<option value=29> 29 </option>
+<option value=30> 30 </option>
+<option value=31> 31 </option>
+</select>
+<select name="startYear" id = "startYear" class="startDateDropdown" onchange = "checkTimes('startDateDropdown');">
+<option value=2013>2013</option>
+<option value=2014>2014</option>
+<option value=2015>2015</option>
+<option value=2016>2016</option>
+</select>
+
+
+<span class="required">Arrive By: </span>
+<select name="endMonth" id = "endMonth" class="endDateDropdown" onchange = "checkTimes('endDateDropdown');">
+<option value=01> January </option>
+<option value=02> February </option>
+<option value=03> March </option>
+<option value=04> April </option>
+<option value=05> May </option>
+<option value=06> June </option>
+<option value=07> July </option>
+<option value=08> August </option>
+<option value=09> September </option>
+<option value=10> October </option>
+<option value=11> November </option>
+<option value=12> December </option>
+</select>
+<select name="endDay" id = "endDay" class="endDateDropdown" onchange = "checkTimes('endDateDropdown');">
+<option value=01> 1 </option>
+<option value=02> 2 </option>
+<option value=03> 3 </option>
+<option value=04> 4 </option>
+<option value=05> 5 </option>
+<option value=06> 6 </option>
+<option value=07> 7 </option>
+<option value=08> 8 </option>
+<option value=09> 9 </option>
+<option value=10> 10 </option>
+<option value=11> 11 </option>
+<option value=12> 12 </option>
+<option value=13> 13 </option>
+<option value=14> 14 </option>
+<option value=15> 15 </option>
+<option value=16> 16 </option>
+<option value=17> 17 </option>
+<option value=18> 18 </option>
+<option value=19> 19 </option>
+<option value=20> 20 </option>
+<option value=21> 21 </option>
+<option value=22> 22 </option>
+<option value=23> 23 </option>
+<option value=24> 24 </option>
+<option value=25> 25 </option>
+<option value=26> 26 </option>
+<option value=27> 27 </option>
+<option value=28> 28 </option>
+<option value=29> 29 </option>
+<option value=30> 30 </option>
+<option value=31> 31 </option>
+</select>
+<select name="endYear" id = "endYear" class="endDateDropdown" onchange = "checkTimes('endDateDropdown');">
+<option value=2013>2013</option>
+<option value=2014>2014</option>
+<option value=2015>2015</option>
+<option value=2016>2016</option>
+</select>
 
 </div>
 	<input type="submit" />
@@ -114,7 +275,7 @@ function joinClicked(sel, email) {
 <div>
 <?php
 $c = oci_connect('jwassel', 'jasonwassel', '//localhost/curt');
-$q = 'select c.carpool_id, c.driver, c.startname, c.endname, c.startdate, c.enddate, c.description, c.openseats, c2.year, c2.make, c2.model, u.firstname, u.lastname from carpool c, car c2, users u where c.driver = c2.owner AND c2.owner = u.username';
+$q = 'select c.carpool_id, c.driver, c.startname, c.endname, c.startdate, c.enddate, nvl(c.description,\'No Description\'), c.openseats, c2.year, c2.make, c2.model, u.firstname, u.lastname from carpool c, car c2, users u where c.driver = c2.owner AND c2.owner = u.username';
 if(!empty($_GET['startLocation']))
 	$q = $q.' AND c.startname = :t ';
 if(!empty($_GET['endLocation']))
@@ -127,9 +288,16 @@ if(!empty($_GET['Year']))
 	$q = $q.' AND c2.year >= :y ';
 if(!empty($_GET['openSeats']))
 	$q = $q.' AND c.openseats >= :z';
+if(!empty($_GET['startDay']) && !empty($_GET['startMonth']) && !empty($_GET['startYear']) )
+	$q = $q.' AND c.startDate >= to_date(:s,\'yyyy/mm/dd\')';
+if(!empty($_GET['endDay']) && !empty($_GET['endMonth']) && !empty($_GET['endYear']) )
+	$q = $q.' AND c.endDate <= to_date(:r,\'yyyy/mm/dd\')';
+$q = $q.' AND c.openseats > 0';
 //Parse that SQL query into a statement
 
 $s = oci_parse($c, $q);
+oci_bind_by_name($s, ":r", $endDateString);
+oci_bind_by_name($s, ":s", $startDateString);
 oci_bind_by_name($s, ":t", $startLocation);
 oci_bind_by_name($s, ":u", $endLocation);
 oci_bind_by_name($s, ":v", $Make);
