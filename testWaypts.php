@@ -6,6 +6,7 @@ session_write_close();
 header("Location:index.html");
 exit;
 }
+
 ?>
 <html>
 <head>
@@ -121,7 +122,6 @@ var destLatArray = <?php echo json_encode($endLatArray);?>;
 var destLngArray = <?php echo json_encode($endLngArray);?>;
 var carpoolIDArray = <?php echo json_encode($carpoolIDArray);?>;
 window.onload = function() {
-
  updateTime();
 
 }
@@ -154,19 +154,18 @@ function initialize() {
   directionsDisplay.setMap(map);
 }
 function addTable() {
-var s;
-alert("HEREEEE");
-	//	s = JSON.stringify( a );
-	    //$('#resultsTable').append('<table width="320" border="1"><tr><td colspan="2" rowspan="1">' + " wdw" + '</td></tr><tr><td width="118">' + "sxs" + '</td><td width="186">' + "xs" + '</td></tr></table>');
-	    //$('#resultsTable').append(
+	    $('#resultsTable').append(
 	    <?php
-	
-//$a = json_decode( $_COOKIE['s'], true );
-echo "Here";
-		 ?>/*)*/;
+		print "'<table><tr><td>Hello</td></tr></table>'";
+			?>);
+
+}
+function sendAction() {
+		window.location.href = "showRecommendations.php?arr[]=" + carpoolIDResults;
 
 }
 function callback(currentIndex,len,nextCarpoolID) {
+	//alert(increment);
 	//alert("Callback called. Completed inc = " +increment + " and curr index = " + currentIndex + " and len = " + len);
 	increment++;
 	if(currentIndex==len) {
@@ -176,11 +175,13 @@ function callback(currentIndex,len,nextCarpoolID) {
 		for(var i=0;i<newLen;i++) {
 			//alert(i + " = " + carpoolIDResults[i]);
 		}
-		addTable();
+		//addTable();
+		//document.getElementById("arr").value = carpoolIDResults;
+		document.getElementById("formButton").style.display='block';
 		
 		
 	} else {
-		 setTimeout(function(){calcRouteWithoutWaypts(originsLatArray[increment], originsLngArray[increment], destLatArray[increment], destLngArray[increment],carpoolIDResults,carpoolIDArray[increment],len,currentIndex+1)},1000);
+		 setTimeout(function(){calcRouteWithoutWaypts(originsLatArray[increment], originsLngArray[increment], destLatArray[increment], destLngArray[increment],carpoolIDResults,carpoolIDArray[increment],len,currentIndex+1)},1200);
 
 		
 	}
@@ -203,6 +204,7 @@ function calcRouteWithoutWaypts(startLat, startLng, endLat, endLng, carpoolIDRes
       destination:driverEnd,
       travelMode: google.maps.DirectionsTravelMode.DRIVING
   };
+  
   directionsService.route(riderRequest, function(response, status) {
     if (status == google.maps.DirectionsStatus.OK) {
       //directionsDisplay.setDirections(response);
@@ -292,22 +294,26 @@ var driverStart = new google.maps.LatLng(startLat, startLng);
     });
   }
 
-
+   <?php 
+	if(!empty($_GET['arr']))
+	{
+		//var_dump($_GET['arr']);
+		print 'addTable();';
+	}
+?>
 google.maps.event.addDomListener(window, 'load', initialize);
 
     </script>
+
 </head>
 <body>
 <center><h2> Request a Ride</h2></center>
     <div id="map-canvas"></div>
-<form action="insertSearcher.php" method="get">
+<form action="javascript:sendAction();">
 <div class="insertForm" style="float:left">
 <div class="form-group"><label for="start">Starting Point: <input name="start" id="start" type="textbox" onchange="codeAddress(this);"/></div>
 <div class ="form-group"><label for="end">End Point: <input name="end" id="end" onchange="findTimes(); codeAddress(this);"/></div>
-<input name="startLat" id="startLat" type="hidden"/>
-<input name="startLong" id="startLong" type="hidden"/>
-<input name="endLat" id="endLat" type="hidden"/>
-<input name="endLong" id="endLong" type="hidden"/>
+<input name="poop" id="poop" type="hidden"/>
 <div class = "form-control">
 <span>Start Date: </span>
 <select name="startMonth" id = "startMonth">
@@ -480,7 +486,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 
 
-<input type="submit"/>
+<input type="submit" style="display:none;" id="formButton"/>
 </div>
 </form>
 <br></br><br></br>
