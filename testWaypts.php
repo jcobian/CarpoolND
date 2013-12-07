@@ -17,7 +17,7 @@ exit;
 //Create a connection to the oracle database with the user xxx and the password yyy on the host zzz with the database www
 $c = oci_connect('jwassel', 'jasonwassel', '//localhost/curt');
 //Write some SQL code to get rows from the wizards table
-$q = 'select startlat from carpool';
+$q = 'select startlat from carpool order by carpool_id';
 //Parse that SQL query into a statement
 $s = oci_parse($c, $q);
 //Execute the SQL statement/query
@@ -32,7 +32,7 @@ while ($row = oci_fetch_array($s,OCI_ASSOC)) {
 }
 
 //2nd query
-$q = 'select startlng from carpool';
+$q = 'select startlng from carpool order by carpool_id';
 //Parse that SQL query into a statement
 $s = oci_parse($c, $q);
 //Execute the SQL statement/query
@@ -47,7 +47,7 @@ while ($row = oci_fetch_array($s,OCI_ASSOC)) {
 }
 
 //3rd query
-$q = 'select endlat from carpool';
+$q = 'select endlat from carpool order by carpool_id';
 //Parse that SQL query into a statement
 $s = oci_parse($c, $q);
 //Execute the SQL statement/query
@@ -62,7 +62,7 @@ while ($row = oci_fetch_array($s,OCI_ASSOC)) {
 }
 
 //4th query
-$q = 'select endlng from carpool';
+$q = 'select endlng from carpool order by carpool_id';
 //Parse that SQL query into a statement
 $s = oci_parse($c, $q);
 //Execute the SQL statement/query
@@ -77,7 +77,7 @@ while ($row = oci_fetch_array($s,OCI_ASSOC)) {
 }
 
 //5th query
-$q = 'select carpool_id from carpool';
+$q = 'select carpool_id from carpool order by carpool_id';
 //Parse that SQL query into a statement
 $s = oci_parse($c, $q);
 //Execute the SQL statement/query
@@ -116,6 +116,8 @@ var geocoder;
 var isDone = new Boolean();
 var increment = 0;
 var carpoolIDResults = new Array();
+var resultRatios = new Array();
+var totalTripTime = new Array();
 var originsLatArray = <?php echo json_encode($originsLatArray);?>;
 var originsLngArray = <?php echo json_encode($originsLngArray);?>;
 var destLatArray = <?php echo json_encode($endLatArray);?>;
@@ -161,19 +163,21 @@ function addTable() {
 
 }
 function sendAction() {
-		window.location.href = "showRecommendations.php?arr[]=" + carpoolIDResults;
+		window.location.href = "showRecommendations.php?arr[]=" + carpoolIDResults + "&arr2[]="+totalTripTime + "&startDay=" + document.getElementById("startDay").value + "&startMonth=" + document.getElementById("startMonth").value + "&startYear=" + document.getElementById("startYear").value + "&endDay=" + document.getElementById("endDay").value + "&endMonth=" + document.getElementById("endMonth").value + "&endYear=" + document.getElementById("endYear").value;
 
 }
 function callback(currentIndex,len,nextCarpoolID) {
 	//alert(increment);
-	//alert("Callback called. Completed inc = " +increment + " and curr index = " + currentIndex + " and len = " + len);
+//	alert("Callback called. Completed inc = " +increment + " and curr index = " + currentIndex + " and len = " + len);
 	increment++;
 	if(currentIndex==len) {
 		isDone=true;
 		alert("Limit reached");
 		var newLen = carpoolIDResults.length;
-		for(var i=0;i<newLen;i++) {
-			//alert(i + " = " + carpoolIDResults[i]);
+		if(newLen==0){
+			carpoolIDResults.push(0);
+			//resultRatios.push(0);
+	//		totalTripTime.push(0);
 		}
 		//addTable();
 		//document.getElementById("arr").value = carpoolIDResults;
@@ -181,7 +185,7 @@ function callback(currentIndex,len,nextCarpoolID) {
 		
 		
 	} else {
-		 setTimeout(function(){calcRouteWithoutWaypts(originsLatArray[increment], originsLngArray[increment], destLatArray[increment], destLngArray[increment],carpoolIDResults,carpoolIDArray[increment],len,currentIndex+1)},1200);
+		 setTimeout(function(){calcRouteWithoutWaypts(originsLatArray[increment], originsLngArray[increment], destLatArray[increment], destLngArray[increment],carpoolIDResults,carpoolIDArray[increment],len,currentIndex+1)},len*100);
 
 		
 	}
@@ -204,7 +208,7 @@ function calcRouteWithoutWaypts(startLat, startLng, endLat, endLng, carpoolIDRes
       destination:driverEnd,
       travelMode: google.maps.DirectionsTravelMode.DRIVING
   };
-  
+  //alert("Carpool id w/o" + carpoolID );
   directionsService.route(riderRequest, function(response, status) {
     if (status == google.maps.DirectionsStatus.OK) {
       //directionsDisplay.setDirections(response);
@@ -226,7 +230,7 @@ var driverStart = new google.maps.LatLng(startLat, startLng);
   var passengerStart = document.getElementById('start').value;
   var passengerEnd = document.getElementById('end').value;
   var waypts = [];
-	
+	  //("Carpool id w/" + carpoolID);
   waypts.push({
 	location: passengerStart,
 	stopover: true
@@ -249,9 +253,12 @@ var driverStart = new google.maps.LatLng(startLat, startLng);
         total_time_with_waypts = total_time_with_waypts + response.routes[0].legs[i].duration.value;
       }
 	//alert("Initial time = " + initialTime + " Waypoints time = " + total_time_with_waypts);
-	if(initialTime < total_time_with_waypts) {
+	if((((total_time_with_waypts-initialTime)/total_time_with_waypts)*100)<20) {
 		carpoolIDResults.push(carpoolID);
-		//alert("Added, carpool id = " + carpoolID + " len is now = " + carpoolIDResults.length);
+		resultRatios.push((((total_time_with_waypts-initialTime)/total_time_with_waypts)*100));
+		totalTripTime.push(total_time_with_waypts);
+		//     directionsDisplay.setDirections(response);
+		//alert("Added, carpool id = " + carpoolID + " Initial time " + initialTime +  " waypts time " + total_time_with_waypts + " Ratio" + (((total_time_with_waypts-initialTime)/total_time_with_waypts)*100));
 
 	}	
 
@@ -307,22 +314,17 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 </head>
 <body>
-<center><h2> Request a Ride</h2></center>
+<center><h2>Find Closest Ride</h2></center>
     <div id="map-canvas"></div>
 <form action="javascript:sendAction();">
 <div class="insertForm" style="float:left">
-<<<<<<< HEAD
-<div class="form-group"><label for="start">Starting Point: <input name="start" id="start" type="textbox" onchange="codeAddress(this);"/></div>
-<div class ="form-group"><label for="end">End Point: <input name="end" id="end" onchange="findTimes(); codeAddress(this);"/></div>
-<input name="poop" id="poop" type="hidden"/>
-=======
+
 <div class="form-group"><label for="start" style="color:white" class="required">Starting Point: <input name="start" id="start" type="textbox" onchange="codeAddress(this);"/></div>
 <div class ="form-group"><label for="end" style="color:white" class="required">End Point: <input name="end" id="end" onchange="findTimes(); codeAddress(this);"/></div>
 <input name="startLat" id="startLat" type="hidden"/>
 <input name="startLong" id="startLong" type="hidden"/>
 <input name="endLat" id="endLat" type="hidden"/>
 <input name="endLong" id="endLong" type="hidden"/>
->>>>>>> 67bc725ef0d6b98ace9499cf2494facc1ee50468
 <div class = "form-control">
 <span>Start Date: </span>
 <select name="startMonth" id = "startMonth">
@@ -377,34 +379,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <option value=2014>2014</option>
 <option value=2015>2015</option>
 <option value=2016>2016</option>
-</select>
-</div>
-<div class = "form-control">
-<span>Start Time: </span>
-<select name="startHour" id = "startHour">
-<option value=1> 1 </option>
-<option value=2> 2 </option>
-<option value=3> 3 </option>
-<option value=4> 4 </option>
-<option value=5> 5 </option>
-<option value=6> 6 </option>
-<option value=7> 7 </option>
-<option value=8> 8 </option>
-<option value=9> 9 </option>
-<option value=10> 10 </option>
-<option value=11> 11 </option>
-<option value=12 selected> 12 </option>
-</select>
-<span>:</span>
-<select name="startMinute" id = "startMinute">
-<option value=00 selected> 00 </option>
-<option value=15> 15 </option>
-<option value=30> 30 </option>
-<option value=45> 45 </option>
-</select>
-<select name="startAmPm" id = "startAmPm">
-<option value="am"> AM </option>
-<option value="pm" selected> PM </option>
 </select>
 </div>
 <div class = "form-control">
@@ -463,37 +437,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <option value=2016>2016</option>
 </select>
 </div>
-<div class = "form-control">
-<span>ETA: </span>
-<select name="endHour" id = "endHour">
-<option value=1> 1 </option>
-<option value=2> 2 </option>
-<option value=3> 3 </option>
-<option value=4> 4 </option>
-<option value=5> 5 </option>
-<option value=6> 6 </option>
-<option value=7> 7 </option>
-<option value=8> 8 </option>
-<option value=9> 9 </option>
-<option value=10> 10 </option>
-<option value=11> 11 </option>
-<option value=12 selected> 12 </option>
-</select>
-<span>:</span>
-<select name="endMinute" id = "endMinute">
-<option value=00 selected> 00 </option>
-<option value=15> 15 </option>
-<option value=30> 30 </option>
-<option value=45> 45 </option>
-</select>
-<select name="endAmPm" id = "endAmPm">
-<option value="am"> AM </option>
-<option value="pm" selected> PM </option>
-</select>
-</div>
-
-
-
 
 <input type="submit" style="display:none;" id="formButton"/>
 </div>

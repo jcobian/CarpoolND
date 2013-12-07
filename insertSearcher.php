@@ -100,6 +100,7 @@ while($row=oci_fetch_array($s,OCI_ASSOC)) {
 	print '</tr>';
 }
 oci_close($c);
+header("Location:homePage.php");
 ?>
 </table>
 </body>
