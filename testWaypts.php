@@ -311,9 +311,18 @@ google.maps.event.addDomListener(window, 'load', initialize);
     <div id="map-canvas"></div>
 <form action="javascript:sendAction();">
 <div class="insertForm" style="float:left">
+<<<<<<< HEAD
 <div class="form-group"><label for="start">Starting Point: <input name="start" id="start" type="textbox" onchange="codeAddress(this);"/></div>
 <div class ="form-group"><label for="end">End Point: <input name="end" id="end" onchange="findTimes(); codeAddress(this);"/></div>
 <input name="poop" id="poop" type="hidden"/>
+=======
+<div class="form-group"><label for="start" style="color:white" class="required">Starting Point: <input name="start" id="start" type="textbox" onchange="codeAddress(this);"/></div>
+<div class ="form-group"><label for="end" style="color:white" class="required">End Point: <input name="end" id="end" onchange="findTimes(); codeAddress(this);"/></div>
+<input name="startLat" id="startLat" type="hidden"/>
+<input name="startLong" id="startLong" type="hidden"/>
+<input name="endLat" id="endLat" type="hidden"/>
+<input name="endLong" id="endLong" type="hidden"/>
+>>>>>>> 67bc725ef0d6b98ace9499cf2494facc1ee50468
 <div class = "form-control">
 <span>Start Date: </span>
 <select name="startMonth" id = "startMonth">
