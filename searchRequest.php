@@ -45,7 +45,7 @@ function refreshPage(){
 <center><h2> Requested Rides </h2></center>
 <?php
 $c = oci_connect('jwassel', 'jasonwassel', '//localhost/curt');
-$q = 'select distinct r.request_id, r.username, c.startname, c.endname, c.startdate, c.enddate from request r, carpool c where c.carpool_id = r.carpool_id and c.driver = :t and r.accepted = 0';
+$q = 'select distinct r.request_id, r.username, c.startname, c.endname, c.startdate, c.enddate from request r, carpool c where c.carpool_id = r.carpool_id and c.driver = :t and r.accepted = 0 and c.openseats > 0';
 
 //Parse that SQL query into a statement
 
@@ -104,6 +104,8 @@ if(isset($_GET['getValue']))
 	oci_bind_by_name($s, ":u", $requestid);
 	oci_execute($s);
 	
+	
+	
 	$q = 'select carpool_id from request where request_id = :w';
 	$s = oci_parse($c, $q);
 	oci_bind_by_name($s, ":w", $requestid);
@@ -114,11 +116,30 @@ if(isset($_GET['getValue']))
 			$carpid = $column;
 		}
 	}
+
 	$q = 'update carpool set openseats = openseats - 1 where carpool_id = :c';
 	$s = oci_parse($c, $q);
 	oci_bind_by_name($s, ":c", $carpid);
 	oci_execute($s);
+	
+	$q = 'select openseats from carpool where carpool_id = :c';
+	$s = oci_parse($c, $q);
+	oci_bind_by_name($s, ":c", $carpid);
+	oci_execute($s);
+	$num_openseats = -1;
+	while ($row = oci_fetch_array($s,OCI_ASSOC)) {
+		foreach($row as $column){
+			$num_openseats = $column;
+			
+		}
+	}
+	print $num_openseats;
+	if ($num_openseats == 0){
+		print '<script type="text/javascript">'.'alert("This carpool is now full"); </script>';
+	}
 	print '<script type="text/javascript">'.'refreshPage(); </script>';
+	
+	
 }
 ?>
 
