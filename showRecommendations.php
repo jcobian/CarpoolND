@@ -73,11 +73,12 @@ foreach ($carpoolIDs as $value){
 	}
 }*/
 $q = $q.'0)';
+/*
 if(!empty($_GET['startDay']) && !empty($_GET['startMonth']) && !empty($_GET['startYear']) )
 	$q = $q.' AND c.startDate >= to_date(:s,\'yyyy/mm/dd\')';
 if(!empty($_GET['endDay']) && !empty($_GET['endMonth']) && !empty($_GET['endYear']) )
 	$q = $q.' AND c.endDate <= to_date(:r,\'yyyy/mm/dd\')';
-
+*/
 $q = $q.' order by carpool_id';
 //unset $value;
 //$q = $q.' AND c.openseats > 0';

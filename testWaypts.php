@@ -163,8 +163,8 @@ function addTable() {
 
 }
 function sendAction() {
-		window.location.href = "showRecommendations.php?arr[]=" + carpoolIDResults + "&arr2[]="+totalTripTime + "&startDay=" + document.getElementById("startDay").value + "&startMonth=" + document.getElementById("startMonth").value + "&startYear=" + document.getElementById("startYear").value + "&endDay=" + document.getElementById("endDay").value + "&endMonth=" + document.getElementById("endMonth").value + "&endYear=" + document.getElementById("endYear").value;
-
+		//window.location.href = "showRecommendations.php?arr[]=" + carpoolIDResults + "&arr2[]="+totalTripTime + "&startDay=" + document.getElementById("startDay").value + "&startMonth=" + document.getElementById("startMonth").value + "&startYear=" + document.getElementById("startYear").value + "&endDay=" + document.getElementById("endDay").value + "&endMonth=" + document.getElementById("endMonth").value + "&endYear=" + document.getElementById("endYear").value;
+		window.location.href = "showRecommendations.php?arr[]=" + carpoolIDResults + "&arr2[]="+totalTripTime;
 }
 function callback(currentIndex,len,nextCarpoolID) {
 	//alert(increment);
@@ -172,7 +172,7 @@ function callback(currentIndex,len,nextCarpoolID) {
 	increment++;
 	if(currentIndex==len) {
 		isDone=true;
-		alert("Limit reached");
+		//alert("Limit reached");
 		var newLen = carpoolIDResults.length;
 		if(newLen==0){
 			carpoolIDResults.push(0);
@@ -193,7 +193,7 @@ function callback(currentIndex,len,nextCarpoolID) {
 }
 function findTimes() {
 		var len=carpoolIDArray.length;
-		alert(len);
+		//alert(len);
 		var currentIndex = 1;
 		 calcRouteWithoutWaypts(originsLatArray[0], originsLngArray[0], destLatArray[0], destLngArray[0],carpoolIDResults,carpoolIDArray[0],len,currentIndex);
 		 
@@ -325,7 +325,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <input name="startLong" id="startLong" type="hidden"/>
 <input name="endLat" id="endLat" type="hidden"/>
 <input name="endLong" id="endLong" type="hidden"/>
-<div class = "form-control">
+<!--<div class = "form-control">
 <span>Start Date: </span>
 <select name="startMonth" id = "startMonth">
 <option value=01> January </option>
@@ -437,7 +437,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <option value=2016>2016</option>
 </select>
 </div>
-
+-->
 <input type="submit" style="display:none;" id="formButton"/>
 </div>
 </form>
