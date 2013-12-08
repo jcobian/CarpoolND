@@ -2,3 +2,6 @@
 body { background-image:url('../img/South_Quad_Notre_Dame_edit.png');
 background-size:cover;
 background-repeat:no-repeat;}
+#load {
+	display: none;
+}

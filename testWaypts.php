@@ -141,6 +141,14 @@ var today = new Date();
   document.getElementById("endYear").value = yyyy;
 
 }
+
+function clickedButton(sel) {
+	if(sel.id=="goBack") 
+		window.location.href="homePage.php";
+	
+
+}
+
 function initialize() {
   
   geocoder = new google.maps.Geocoder();
@@ -181,6 +189,7 @@ function callback(currentIndex,len,nextCarpoolID) {
 		}
 		//addTable();
 		//document.getElementById("arr").value = carpoolIDResults;
+		document.getElementById("load").style.display = "none";
 		document.getElementById("formButton").style.display='block';
 		
 		
@@ -192,6 +201,7 @@ function callback(currentIndex,len,nextCarpoolID) {
 
 }
 function findTimes() {
+		document.getElementById("load").style.display = "block";
 		var len=carpoolIDArray.length;
 		//alert(len);
 		var currentIndex = 1;
@@ -439,13 +449,12 @@ google.maps.event.addDomListener(window, 'load', initialize);
 </div>
 -->
 <input type="submit" style="display:none;" id="formButton"/>
+<button id="goBack" type="button" onclick="clickedButton(this)"> Go Back</button>
 </div>
 </form>
+
 <br></br><br></br>
-<div id="resultsTable" style="float:left">
-
-</div>
-
+<div id="load"><img src="img/loader.gif"/></div>
 </body>
 </html>
 

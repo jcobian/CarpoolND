@@ -154,7 +154,7 @@ function checkTimes(sel) {
 	<option value=9> 9 </option>
 	</select>
 <br></br>	
-<span class="required">Leave on or After: </span>
+<span>Leave on or After: </span>
 <select name="startMonth" id = "startMonth" class="startDateDropdown" onchange = "checkTimes('startDateDropdown');">
 <option value=01> January </option>
 <option value=02> February </option>
@@ -210,7 +210,7 @@ function checkTimes(sel) {
 </select>
 
 
-<span class="required">Arrive By: </span>
+<span>Arrive By: </span>
 <select name="endMonth" id = "endMonth" class="endDateDropdown" onchange = "checkTimes('endDateDropdown');">
 <option value=01> January </option>
 <option value=02> February </option>
