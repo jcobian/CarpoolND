@@ -50,7 +50,8 @@ function clickedButton(sel) {
 function joinClicked(sel, email) {
 	var getValue = sel.id;
 	alert("A notification has been sent to " + email + "!");
-	window.location = "?getValue=" + getValue;
+	window.location = "searchCarpool.php?getValue=" + getValue;
+	//window.location.href = "showRecommendations.php?arr[]=" + carpoolIDResults + "&arr2[]="+totalTripTime;
 }
 
 </script>
