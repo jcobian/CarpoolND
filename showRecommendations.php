@@ -43,7 +43,7 @@ $endDateString = $endYear.'/'.$endMonth.'/'.$endDay;
 <script type="text/javascript">
 function clickedButton(sel) {
 	if(sel.id=="goBack") {
-		window.location.href="testWaypts.php";
+		window.location.href="homePage.php";
 	}
 
 }
