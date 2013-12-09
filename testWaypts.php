@@ -202,7 +202,8 @@ function callback(currentIndex,len,nextCarpoolID) {
 }
 function findTimes() {
 		document.getElementById("load").style.display = "block";
-		var len=carpoolIDArray.length;
+		//var len=carpoolIDArray.length;
+		var len = 10; //hardcoded to 10 for presentation
 		//alert(len);
 		var currentIndex = 1;
 		 calcRouteWithoutWaypts(originsLatArray[0], originsLngArray[0], destLatArray[0], destLngArray[0],carpoolIDResults,carpoolIDArray[0],len,currentIndex);
