@@ -275,7 +275,7 @@ function checkTimes(sel) {
 <div>
 <?php
 $c = oci_connect('jwassel', 'jasonwassel', '//localhost/curt');
-$q = 'select c.carpool_id, c.driver, c.startname, c.endname, c.startdate, c.enddate, nvl(c.description,\'No Description\'), c.openseats, c2.year, c2.make, c2.model, u.firstname, u.lastname from carpool c, car c2, users u where c.driver = c2.owner AND c2.owner = u.username';
+$q = 'select c.carpool_id, c.driver, c.startname, c.endname, c.startdate, c.enddate, nvl(c.description,\'No Description\'), c.openseats, c2.year, c2.make, c2.model, u.firstname, u.lastname from carpool c, car c2, users u where c.driver = c2.owner AND c2.owner = u.username and c2.car_id = c.car_id';
 if(!empty($_GET['startLocation']))
 	$q = $q.' AND c.startname = :t ';
 if(!empty($_GET['endLocation']))
